@@ -1,0 +1,56 @@
+package com.example.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "translations")
+public class Translation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "translation_id", nullable = false)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @Column(name = "t_key", length = 150)
+    private String tKey;
+
+    @Lob
+    @Column(name = "t_value", nullable = false)
+    private String tValue;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public String getTKey() {
+        return tKey;
+    }
+
+    public void setTKey(String tKey) {
+        this.tKey = tKey;
+    }
+
+    public String getTValue() {
+        return tValue;
+    }
+
+    public void setTValue(String tValue) {
+        this.tValue = tValue;
+    }
+
+}
