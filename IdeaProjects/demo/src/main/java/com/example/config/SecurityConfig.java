@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/vehicles/**").permitAll()
                         .requestMatchers("/api/catalog/**").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
+
                         .anyRequest().authenticated()
                 );
 
