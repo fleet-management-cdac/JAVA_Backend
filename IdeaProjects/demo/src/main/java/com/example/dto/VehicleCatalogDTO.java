@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class VehicleCatalogDTO {
 
     private Long vehicleTypeId;
-    private String categoryName;      // e.g., "Small Cars"
+    private String typeName;      // e.g., "Small Cars"
     private String modelName;         // e.g., "Chevrolet Aveo or similar"
     private String imgUrl;
 
@@ -15,8 +15,7 @@ public class VehicleCatalogDTO {
     private BigDecimal monthlyRate;
 
     // Computed Status for UI (Select / Sold / N.A)
-    private String statusButtonLabel;
-    private boolean isSelectable;
+
 
     // Constructors
     public VehicleCatalogDTO() {}
@@ -25,8 +24,8 @@ public class VehicleCatalogDTO {
     public Long getVehicleTypeId() { return vehicleTypeId; }
     public void setVehicleTypeId(Long vehicleTypeId) { this.vehicleTypeId = vehicleTypeId; }
 
-    public String getCategoryName() { return categoryName; }
-    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+    public String getTypeName() { return typeName; }
+    public void setTypeName(String typeName) { this.typeName = typeName; }
 
     public String getModelName() { return modelName; }
     public void setModelName(String modelName) { this.modelName = modelName; }
@@ -43,9 +42,5 @@ public class VehicleCatalogDTO {
     public BigDecimal getMonthlyRate() { return monthlyRate; }
     public void setMonthlyRate(BigDecimal monthlyRate) { this.monthlyRate = monthlyRate; }
 
-    public String getStatusButtonLabel() { return statusButtonLabel; }
-    public void setStatusButtonLabel(String statusButtonLabel) { this.statusButtonLabel = statusButtonLabel; }
 
-    public boolean isSelectable() { return isSelectable; }
-    public void setSelectable(boolean selectable) { isSelectable = selectable; }
 }
