@@ -10,7 +10,6 @@ import com.example.repository.VehicleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,51 +25,49 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    /**
-     * Combines Vehicle Types, Rates, and Availability into a single list
-     * for the "Vehicle Selection" frontend page.
-     */
-    public List<VehicleCatalogDTO> getVehicleCatalogData() {
+    public List<VehicleCatalogDTO> getVehicleCatalogData(Long hubId) {
         List<VehicleCatalogDTO> catalog = new ArrayList<>();
-
-        // 1. Get all base Vehicle Types (e.g., Small Cars, SUVs)
         List<VehicleType> allTypes = vehicleTypeRepository.findAll();
 
         for (VehicleType type : allTypes) {
-            VehicleCatalogDTO dto = new VehicleCatalogDTO();
 
-            // 2. Map Basic Info from VehicleType
-            dto.setVehicleTypeId(type.getId());
-            // Based on your DB, 'description' is likely the Category (e.g., Small Cars)
-            dto.setTypeName(type.getDescription());
-            // 'typeName' is likely the model example (e.g., Chevrolet Aveo)
-            dto.setModelName(type.getTypeName());       
-            dto.setImgUrl(type.getImgUrl());
-
-            // 3. Fetch and Pivot Rates (Rows to Columns)
-            List<VehicleRate> rates = vehicleRateRepository.findByVehicleTypeId(type.getId());
-            
-            for (VehicleRate rate : rates) {
-                // Convert Enum/String to lowercase safely to check plan type
-                String plan = String.valueOf(rate.getPlans()).toLowerCase(); 
-                
-                if (plan.contains("daily")) {
-                    dto.setDailyRate(rate.getAmount());
-                } else if (plan.contains("weekly")) {
-                    dto.setWeeklyRate(rate.getAmount());
-                } else if (plan.contains("monthly")) {
-                    dto.setMonthlyRate(rate.getAmount());
-                }
+            // 1. Calculate Availability
+            long availableCount;
+            if (hubId != null) {
+                availableCount = vehicleRepository.countByVehicleTypeIdAndStatusAndHubId(
+                        type.getId(), VehicleStatus.available.name(), hubId
+                );
+            } else {
+                availableCount = vehicleRepository.countByVehicleTypeIdAndStatus(
+                        type.getId(), VehicleStatus.available.name()
+                );
             }
 
-            // 4. Determine Availability Status (Business Logic)
-            // Count how many cars of this specific type are physically 'available'
-            long availableCount = vehicleRepository.countByVehicleTypeIdAndStatus(
-                    type.getId(),
-                    VehicleStatus.available.name()
-            );
+            // --- THE FIX ---
+            // If the car is NOT available, skip it. Don't add it to the JSON.
+            if (availableCount == 0) {
+                continue;
+            }
+            // ---------------
 
+            VehicleCatalogDTO dto = new VehicleCatalogDTO();
 
+            // 2. Map Basic Info
+            dto.setVehicleTypeId(type.getId());
+            dto.setTypeName(type.getDescription());
+            dto.setModelName(type.getTypeName());
+            dto.setImgUrl(type.getImgUrl());
+
+            // 3. Map Rates
+            List<VehicleRate> rates = vehicleRateRepository.findByVehicleTypeId(type.getId());
+            for (VehicleRate rate : rates) {
+                if (rate.getPlans() != null) {
+                    String plan = String.valueOf(rate.getPlans()).toLowerCase();
+                    if (plan.contains("daily")) dto.setDailyRate(rate.getAmount());
+                    else if (plan.contains("weekly")) dto.setWeeklyRate(rate.getAmount());
+                    else if (plan.contains("monthly")) dto.setMonthlyRate(rate.getAmount());
+                }
+            }
 
             catalog.add(dto);
         }
