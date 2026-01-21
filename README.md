@@ -18,7 +18,9 @@ Reason: Ensures the frontend can load images without being logged in.
 
 C. Database Strategy
 Data Stored: The database only stores the filename (e.g., suv.jpg), not the full path.
+
 DataBase Query:
+
 UPDATE vehicle_types SET img_url = 'economy.jpg' WHERE type_name = 'Economy';
 UPDATE vehicle_types SET img_url = 'sedan.jpg' WHERE type_name = 'Sedan';
 UPDATE vehicle_types SET img_url = 'suv.jpg' WHERE type_name = 'SUV';
