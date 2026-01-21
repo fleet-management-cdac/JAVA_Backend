@@ -31,7 +31,10 @@ public class HubMaster {
     private Set<AirportMaster> airportMasters = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "pickupHub")
-    private Set<Booking> bookings = new LinkedHashSet<>();
+    private Set<Booking> bookingPickup = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "returnHub")
+    private Set<Booking> bookingReturns = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "hub")
     private Set<Vehicle> vehicles = new LinkedHashSet<>();
@@ -84,12 +87,18 @@ public class HubMaster {
         this.airportMasters = airportMasters;
     }
 
-    public Set<Booking> getBookings() {
-        return bookings;
+    public void setBookingPickup(Set<Booking> bookingPickup) {
+        this.bookingPickup = bookingPickup;
     }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
+    public Set<Booking> getBookingPickup() {
+        return bookingPickup;
+    }
+    // For returnHub bookings
+    public Set<Booking> getBookingReturns() {
+        return bookingReturns;
+    }
+    public void setBookingReturns(Set<Booking> bookingReturns) {
+        this.bookingReturns = bookingReturns;
     }
 
     public Set<Vehicle> getVehicles() {
