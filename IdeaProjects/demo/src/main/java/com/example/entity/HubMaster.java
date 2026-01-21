@@ -87,11 +87,11 @@ public class HubMaster {
         this.airportMasters = airportMasters;
     }
 
-    public Set<Booking> getBookingPickup() {
-        return bookingPickup;
-    }
     public void setBookingPickup(Set<Booking> bookingPickup) {
         this.bookingPickup = bookingPickup;
+    }
+    public Set<Booking> getBookingPickup() {
+        return bookingPickup;
     }
     // For returnHub bookings
     public Set<Booking> getBookingReturns() {
@@ -100,7 +100,6 @@ public class HubMaster {
     public void setBookingReturns(Set<Booking> bookingReturns) {
         this.bookingReturns = bookingReturns;
     }
-
 
     public Set<Vehicle> getVehicles() {
         return vehicles;
