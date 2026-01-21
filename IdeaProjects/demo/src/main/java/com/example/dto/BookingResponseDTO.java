@@ -120,4 +120,4 @@ public class BookingResponseDTO {
 
    public LocalDate getDipValidTill() { return dipValidTill; }
    public void setDipValidTill(LocalDate dipValidTill) { this.dipValidTill = dipValidTill; }
-}
+   }
