@@ -42,7 +42,7 @@ public class VehicleService {
             // 2. Map Basic Info from VehicleType
             dto.setVehicleTypeId(type.getId());
             // Based on your DB, 'description' is likely the Category (e.g., Small Cars)
-            dto.setCategoryName(type.getDescription()); 
+            dto.setTypeName(type.getDescription());
             // 'typeName' is likely the model example (e.g., Chevrolet Aveo)
             dto.setModelName(type.getTypeName());       
             dto.setImgUrl(type.getImgUrl());
@@ -70,14 +70,7 @@ public class VehicleService {
                     VehicleStatus.available.name()
             );
 
-            if (availableCount > 0) {
-                dto.setStatusButtonLabel("Select");
-                dto.setSelectable(true);
-            } else {
-                // If 0 cars are available, we mark as "Sold" (Rented out)
-                dto.setStatusButtonLabel("Sold");
-                dto.setSelectable(false);
-            }
+
 
             catalog.add(dto);
         }
