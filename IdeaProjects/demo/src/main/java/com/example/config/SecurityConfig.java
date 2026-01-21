@@ -22,14 +22,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                .cors(cors -> cors.disable()) // Note: In production, configure this properly!
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/vehicles/**").permitAll()
+                        .requestMatchers("/api/vehicles/**").permitAll() // Allows /api/vehicles/upload
                         .requestMatchers("/api/catalog/**").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
+
+                        .requestMatchers("/images/**").permitAll()
+
                         .anyRequest().authenticated()
                 );
 
