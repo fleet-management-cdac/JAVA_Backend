@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/bookings/**").permitAll()
                         .requestMatchers("/api/locations/**").permitAll()
-
+                        .requestMatchers("/api/invoices/**").permitAll()
 
                         .anyRequest().authenticated()
                 );
