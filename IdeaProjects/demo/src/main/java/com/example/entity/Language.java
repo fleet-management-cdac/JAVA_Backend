@@ -63,6 +63,7 @@ public class Language {
         return translations;
     }
 
+
     public void setTranslations(Set<Translation> translations) {
         this.translations = translations;
     }
