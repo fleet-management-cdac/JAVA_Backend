@@ -32,6 +32,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/**").permitAll()
 
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/api/bookings/**").permitAll()
+                        .requestMatchers("/api/locations/**").permitAll()
+
 
                         .anyRequest().authenticated()
                 );

@@ -15,6 +15,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import com.example.entity.HubMaster;
+import com.example.repository.HubMasterRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +34,10 @@ public class HubService {
     // --- EXISTING FETCH METHOD ---
     public List<HubMasterDTO> getHubsByCity(Long cityId) {
         List<HubMaster> hubs = hubRepository.findByCity_Id(cityId);
+    public List<HubMasterDTO> getHubsByCity(Long cityId) {
+        List<HubMaster> hubs = hubRepository.findByCity_Id(cityId);
+
+        // Safety: Ensure we never return null to the Frontend
         if (hubs == null) return new ArrayList<>();
 
         return hubs.stream()

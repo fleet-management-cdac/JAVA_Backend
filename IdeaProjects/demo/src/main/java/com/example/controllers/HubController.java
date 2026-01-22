@@ -10,6 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/locations") // Your Base URL is /api/locations
+import org.springframework.http.ResponseEntity; // Add this import
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/locations")
 @CrossOrigin(origins = "*")
 public class HubController {
 
@@ -20,6 +26,7 @@ public class HubController {
     }
 
     // --- YOUR EXISTING METHOD (Keep this exactly as is) ---
+    // UPDATE: Added /city/ to match your React fetch call
     @GetMapping("/hubs/city/{cityId}")
     public ResponseEntity<List<HubMasterDTO>> getHubsByCity(@PathVariable Long cityId) {
         List<HubMasterDTO> hubs = hubService.getHubsByCity(cityId);

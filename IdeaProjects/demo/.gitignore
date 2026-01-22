@@ -1,8 +1,27 @@
+### Spring Boot ###
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### Application config (IGNORE SECRETS) ###
+application.properties
+application.yml
+application-*.properties
+application-*.yml
+
+# Keep example config committed
+!application-example.properties
+!application-example.yml
+
+### Logs ###
+logs/
+*.log
+
+### OS ###
+.DS_Store
+Thumbs.db
 
 ### STS ###
 .apt_generated
@@ -14,10 +33,11 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,9 +45,15 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Gradle ###
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+### Environment files ###
+.env
+.env.*
