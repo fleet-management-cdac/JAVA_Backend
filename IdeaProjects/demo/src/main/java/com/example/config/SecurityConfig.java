@@ -38,6 +38,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/handovers").permitAll()
                         .requestMatchers("/api/handovers/**").permitAll()
                         .requestMatchers("/api/invoices/**").permitAll()
+                        .requestMatchers("/api/languages/**").permitAll()
+                        .requestMatchers("/api/translations/**").permitAll()
                         // --------------------------------------------------------
                         .anyRequest().authenticated()
                 );
