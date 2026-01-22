@@ -35,6 +35,10 @@ public class Booking {
     @JoinColumn(name = "return_hub_id")
     private HubMaster returnHub;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "addon_id")
+    private Addon addon;
+
     @Column(name = "pickup_datetime", nullable = false)
     private Instant pickupDatetime;
 
