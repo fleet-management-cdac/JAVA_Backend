@@ -13,24 +13,15 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import com.example.dto.ApiResponseDTO;
-import com.example.dto.BookingRequestDTO;
-import com.example.dto.BookingResponseDTO;
-import com.example.entity.*;
-import com.example.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 @Service
 public class BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private BookingCustomerDetailRepository bookingCustomerDetailRepository;
@@ -137,6 +128,7 @@ public class BookingService {
             customerDetail.setCity(city);
         }
 
+        // Save customer detail
         customerDetail = bookingCustomerDetailRepository.save(customerDetail);
 
         // Update vehicle status
@@ -145,6 +137,26 @@ public class BookingService {
 
         // Build response
         BookingResponseDTO response = buildBookingResponse(booking, customerDetail);
+
+        // ========== SEND CONFIRMATION EMAIL ==========
+        try {
+            emailService.sendBookingConfirmationEmail(
+                    request.getEmail(),
+                    request.getFirstName() + " " + (request.getLastName() != null ? request.getLastName() : ""),
+                    booking.getId(),
+                    vehicle.getCompany() + " " + vehicle.getModel(),
+                    vehicle.getRegistrationNo(),
+                    pickupHub.getHubName(),
+                    returnHub.getHubName(),
+                    booking.getPickupDatetime(),
+                    booking.getReturnDatetime(),
+                    request.getAddress(),
+                    request.getPhoneCell()
+            );
+            System.out.println("✅ Confirmation email sent to: " + request.getEmail());
+        } catch (Exception e) {
+            System.err.println("⚠️ Failed to send confirmation email: " + e.getMessage());
+        }
 
         return ApiResponseDTO.success("Booking created successfully", response);
     }
@@ -237,10 +249,10 @@ public class BookingService {
         return ApiResponseDTO.success("Booking deleted", null);
     }
 
+    // ========== HELPER METHOD ==========
     private BookingResponseDTO buildBookingResponse(Booking booking, BookingCustomerDetail cd) {
         BookingResponseDTO response = new BookingResponseDTO();
 
-        // Booking fields
         response.setBookingId(booking.getId());
         response.setPickupDatetime(booking.getPickupDatetime());
         response.setReturnDatetime(booking.getReturnDatetime());
@@ -268,7 +280,6 @@ public class BookingService {
             response.setReturnHub(booking.getReturnHub().getHubName());
         }
 
-        // Customer details fields
         if (cd != null) {
             response.setBookingCustomerId(cd.getId());
             response.setFirstName(cd.getFirstName());

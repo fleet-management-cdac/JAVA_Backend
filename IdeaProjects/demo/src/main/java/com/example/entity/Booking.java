@@ -146,6 +146,15 @@ public class Booking {
     public Set<BookingAddon> getBookingAddons() {
         return bookingAddons;
     }
+    // Add after the addon field in Booking.java
+
+    public Addon getAddon() {
+        return addon;
+    }
+
+    public void setAddon(Addon addon) {
+        this.addon = addon;
+    }
 
     public void setBookingAddons(Set<BookingAddon> bookingAddons) {
         this.bookingAddons = bookingAddons;

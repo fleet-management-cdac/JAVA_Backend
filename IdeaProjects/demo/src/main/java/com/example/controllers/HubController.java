@@ -9,12 +9,6 @@ import org.springframework.web.multipart.MultipartFile; // <--- NEW IMPORT
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/locations") // Your Base URL is /api/locations
-import org.springframework.http.ResponseEntity; // Add this import
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
-@RestController
 @RequestMapping("/api/locations")
 @CrossOrigin(origins = "*")
 public class HubController {

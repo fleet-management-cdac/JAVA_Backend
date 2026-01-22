@@ -34,7 +34,10 @@ public class SecurityConfig {
                         // --- Re-add the lines that were lost during the merge ---
                         .requestMatchers("/api/locations/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/api/email/**").permitAll() // Needed for Postman test
+                        .requestMatchers("/api/email/**").permitAll()
+                        .requestMatchers("/api/handovers").permitAll()
+                        .requestMatchers("/api/handovers/**").permitAll()
+                        .requestMatchers("/api/invoices/**").permitAll()
                         // --------------------------------------------------------
                         .anyRequest().authenticated()
                 );
