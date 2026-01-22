@@ -30,13 +30,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/vehicles/**").permitAll() // Allows /api/vehicles/upload
                         .requestMatchers("/api/catalog/**").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
-
-                        .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/bookings/**").permitAll()
+                        // --- Re-add the lines that were lost during the merge ---
                         .requestMatchers("/api/locations/**").permitAll()
-
-
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/api/email/**").permitAll() // Needed for Postman test
+                        // --------------------------------------------------------
                         .anyRequest().authenticated()
                 );
 
