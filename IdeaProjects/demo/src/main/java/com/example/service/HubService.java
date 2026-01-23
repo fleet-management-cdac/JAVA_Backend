@@ -15,11 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.example.entity.HubMaster;
-import com.example.repository.HubMasterRepository;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,9 +26,7 @@ public class HubService {
         this.hubRepository = hubRepository;
     }
 
-    // --- EXISTING FETCH METHOD ---
-    public List<HubMasterDTO> getHubsByCity(Long cityId) {
-        List<HubMaster> hubs = hubRepository.findByCity_Id(cityId);
+    // --- FETCH HUBS BY CITY ---
     public List<HubMasterDTO> getHubsByCity(Long cityId) {
         List<HubMaster> hubs = hubRepository.findByCity_Id(cityId);
 
@@ -49,7 +42,7 @@ public class HubService {
                 .collect(Collectors.toList());
     }
 
-    // --- UPDATED EXCEL UPLOAD METHOD (SAFE FOR DUPLICATES) ---
+    // --- EXCEL UPLOAD METHOD ---
     @Transactional
     public void saveHubsFromExcel(MultipartFile file) {
         try (InputStream is = file.getInputStream();
@@ -82,16 +75,13 @@ public class HubService {
                         Long cityId = (long) Double.parseDouble(cityIdStr);
 
                         // --- 2. CHECK DB: Get LIST of existing hubs ---
-                        // This prevents the "NonUniqueResultException" crash
                         List<HubMaster> existingHubs = hubRepository.findByHubNameAndCity_Id(name, cityId);
                         HubMaster hub;
 
                         if (!existingHubs.isEmpty()) {
-                            // If duplicates exist, just pick the FIRST one to update
                             hub = existingHubs.get(0);
                             System.out.println("DEBUG: Found existing Hub (ID: " + hub.getId() + "). Updating...");
                         } else {
-                            // If list is empty, create NEW
                             hub = new HubMaster();
                             System.out.println("DEBUG: Creating NEW Hub: " + name);
                         }

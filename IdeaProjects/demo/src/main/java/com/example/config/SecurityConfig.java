@@ -30,13 +30,17 @@ public class SecurityConfig {
                         .requestMatchers("/api/vehicles/**").permitAll() // Allows /api/vehicles/upload
                         .requestMatchers("/api/catalog/**").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
-
-                        .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/bookings/**").permitAll()
+                        // --- Re-add the lines that were lost during the merge ---
                         .requestMatchers("/api/locations/**").permitAll()
-
-
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/api/email/**").permitAll()
+                        .requestMatchers("/api/handovers").permitAll()
+                        .requestMatchers("/api/handovers/**").permitAll()
+                        .requestMatchers("/api/invoices/**").permitAll()
+                        .requestMatchers("/api/languages/**").permitAll()
+                        .requestMatchers("/api/translations/**").permitAll()
+                        // --------------------------------------------------------
                         .anyRequest().authenticated()
                 );
 
