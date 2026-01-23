@@ -71,4 +71,29 @@ public class JwtUtil {
     public boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
+
+    // ---  METHODS FOR FORGOT PASSWORD ---
+    public String generateResetToken(String email) {
+        // 15 Minutes Expiration for security
+        long resetExpiration = 1000 * 60 * 15;
+
+        return Jwts.builder()
+                .subject(email)
+                .claim("purpose", "RESET_PASSWORD") // Custom tag
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + resetExpiration))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    public boolean isResetTokenValid(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            String purpose = claims.get("purpose", String.class);
+            // Must match our purpose tag AND not be expired
+            return "RESET_PASSWORD".equals(purpose) && !isTokenExpired(token);
+        } catch (JwtException e) {
+            return false;
+        }
+    }
 }
