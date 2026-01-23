@@ -95,7 +95,7 @@ public class AuthService {
         userAuth.setEmail(request.getEmail());
         userAuth.setPasswordHash(passwordEncoder.encode(request.getPassword()));
         userAuth.setRole("customer");
-        userAuth.setCreatedAt(Instant.now());
+//        userAuth.setCreatedAt(Instant.now());
         userAuth = userAuthRepository.save(userAuth);
 
         // Create UserDetail

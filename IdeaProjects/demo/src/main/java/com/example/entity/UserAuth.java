@@ -1,106 +1,62 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-
-import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_auth")
 public class UserAuth {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private Long id;
+    @Column(name = "user_id") // Maps to database column 'user_id'
+    private Long id;          // Java calls it 'id' (Fixes your errors!)
 
-    @Column(name = "email", nullable = false, length = 150)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "password_hash")
+    private String passwordHash; // We removed 'nullable=false' so Google works
 
-    @ColumnDefault("'customer'")
-    @Lob
-    @Column(name = "role")
-    private String role;
+    @Column(nullable = false)
+    private String role;      // Back to String (Fixes your errors!)
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at")
-    private Instant createdAt;
+    // --- ONLY THESE 2 ARE NEW (Required for Google) ---
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_provider")
+    private AuthProvider authProvider;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Booking> bookings = new LinkedHashSet<>();
+    @Column(name = "provider_id")
+    private String providerId;
+    // ------------------------------------------------
 
-    @OneToMany(mappedBy = "processedBy")
-    private Set<Handover> handovers = new LinkedHashSet<>();
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserDetail> userDetails = new LinkedHashSet<>();
-
-    public Long getId() {
-        return id;
+    public enum AuthProvider {
+        LOCAL, GOOGLE
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // --- Getters and Setters (Standard "Old School" style) ---
 
-    public String getEmail() {
-        return email;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
+    public String getPasswordHash() { return passwordHash; }
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    public String getRole() {
-        return role;
-    }
+    public AuthProvider getAuthProvider() { return authProvider; }
+    public void setAuthProvider(AuthProvider authProvider) { this.authProvider = authProvider; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public String getProviderId() { return providerId; }
+    public void setProviderId(String providerId) { this.providerId = providerId; }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-    public Set<Handover> getHandovers() {
-        return handovers;
-    }
-
-    public void setHandovers(Set<Handover> handovers) {
-        this.handovers = handovers;
-    }
-
-    public Set<UserDetail> getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(Set<UserDetail> userDetails) {
-        this.userDetails = userDetails;
-    }
-
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    // No setter for createdAt because DB handles it
 }

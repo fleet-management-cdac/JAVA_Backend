@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.entity.UserDetail;
+import com.example.entity.UserAuth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +28,5 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
             "LEFT JOIN FETCH c.state " +
             "WHERE ud.id = :userDetailId")
     Optional<UserDetail> findByIdWithDetails(@Param("userDetailId") Long userDetailId);
+    Optional<UserDetail> findByUser(UserAuth user);
 }
