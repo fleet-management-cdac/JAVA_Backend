@@ -32,6 +32,9 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private EmailService emailService;
+
     public ApiResponseDTO<LoginResponseDTO> login(LoginRequestDTO request) {
 
         // Validate input
@@ -139,4 +142,61 @@ public class AuthService {
 
         return ApiResponseDTO.success("Registration successful", responseDTO);
     }
+
+    // --- NEW: FORGOT PASSWORD FLOW ---
+
+    public ApiResponseDTO<String> processForgotPassword(String email) {
+        System.out.println("DEBUG: 1. Request received for: " + email);
+
+        // 1. Silent Check
+        Optional<UserAuth> userOpt = userAuthRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            System.out.println("DEBUG: 2. User NOT found in DB. Returning fake success.");
+            return ApiResponseDTO.success("If an account exists, a reset email has been sent.", null);
+        }
+
+        System.out.println("DEBUG: 2. User found! ID: " + userOpt.get().getId());
+        UserAuth user = userOpt.get();
+
+        // 2. Generate Reset Token (Stateless)
+        String token = jwtUtil.generateResetToken(user.getEmail());
+        System.out.println("DEBUG: 3. Token generated: " + token);
+
+        // 3. Email the link
+        String resetLink = "http://localhost:3000/reset-password?token=" + token;
+        System.out.println("DEBUG: 4. Attempting to send email...");
+
+        try {
+            emailService.sendResetPasswordEmail(email, resetLink);
+            System.out.println("DEBUG: 5. Email sent successfully!");
+        } catch (Exception e) {
+            System.out.println("DEBUG: 5. Email FAILED: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return ApiResponseDTO.success("If an account exists, a reset email has been sent.", null);
+    }
+
+    public ApiResponseDTO<String> resetPassword(String token, String newPassword) {
+        // 1. Validate Token (Signature & Expiry)
+        if (!jwtUtil.isResetTokenValid(token)) {
+            return ApiResponseDTO.error("Invalid or expired link. Please request a new one.");
+        }
+
+        // 2. Extract Email
+        String email = jwtUtil.extractEmail(token);
+        if (email == null) return ApiResponseDTO.error("Invalid token data.");
+
+        // 3. Find User
+        Optional<UserAuth> userOpt = userAuthRepository.findByEmail(email);
+        if (userOpt.isEmpty()) return ApiResponseDTO.error("User not found.");
+
+        // 4. Update Password
+        UserAuth user = userOpt.get();
+        user.setPasswordHash(passwordEncoder.encode(newPassword));
+        userAuthRepository.save(user);
+
+        return ApiResponseDTO.success("Password updated successfully.", null);
+    }
+
 }

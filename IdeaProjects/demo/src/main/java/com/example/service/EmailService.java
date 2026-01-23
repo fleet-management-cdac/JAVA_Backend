@@ -94,6 +94,25 @@ public class EmailService {
     }
 
     /**
+     * NEW: Dedicated method for Password Reset
+     * This keeps the template text out of your AuthService
+     */
+    public void sendResetPasswordEmail(String toEmail, String resetLink) {
+        String subject = "🔑 Reset Your Password - FLEMAN Fleet Services";
+
+        String body = "Hello,\n\n" +
+                "We received a request to reset your password for your FLEMAN account.\n" +
+                "Please click the link below to verify your identity and set a new password:\n\n" +
+                resetLink + "\n\n" +
+                "⏳ This link expires in 15 minutes.\n\n" +
+                "If you did not request this change, please ignore this email. Your account remains secure.\n\n" +
+                "Best Regards,\n" +
+                "FLEMAN Fleet Services Support";
+
+        sendSimpleEmail(toEmail, subject, body);
+    }
+
+    /**
      * Simple booking confirmation (existing method - keep for backward compatibility)
      */
     public void sendBookingConfirmation(String toEmail, String name, Long confirmationNo) {
