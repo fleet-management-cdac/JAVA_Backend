@@ -18,7 +18,6 @@ public class Handover {
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at")
     private Instant createdAt;
 

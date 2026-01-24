@@ -46,11 +46,9 @@ public class Booking {
     private Instant returnDatetime;
 
     @ColumnDefault("'reserved'")
-    @Lob
     @Column(name = "status")
     private String status;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at")
     private Instant createdAt;
 
