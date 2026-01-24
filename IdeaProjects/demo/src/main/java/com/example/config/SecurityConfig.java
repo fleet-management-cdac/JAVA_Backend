@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/invoices/**").permitAll()
                         .requestMatchers("/api/languages/**").permitAll()
                         .requestMatchers("/api/translations/**").permitAll()
+                        .requestMatchers("/api/addons/**").permitAll()
+                        .requestMatchers("/api/i18n/**").permitAll()
                         // --------------------------------------------------------
                         .anyRequest().authenticated()
                 );
