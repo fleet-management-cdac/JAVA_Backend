@@ -37,4 +37,22 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
+
+//forgot password endpoints
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponseDTO<String>> forgotPassword(@RequestBody ForgetPasswordRequestDTO request) {
+        // Always 200 OK
+        return ResponseEntity.ok(authService.processForgotPassword(request.getEmail()));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponseDTO<String>> resetPassword(@RequestBody ResetPasswordRequestDTO request) {
+        ApiResponseDTO<String> response = authService.resetPassword(request.getToken(), request.getNewPassword());
+
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }
