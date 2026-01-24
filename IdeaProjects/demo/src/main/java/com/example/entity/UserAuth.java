@@ -10,6 +10,10 @@ import java.util.Set;
 @Entity
 @Table(name = "user_auth")
 public class UserAuth {
+    public enum AuthProvider {
+        LOCAL, GOOGLE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
@@ -18,15 +22,13 @@ public class UserAuth {
     @Column(name = "email", nullable = false, length = 150)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @ColumnDefault("'customer'")
-    @Lob
     @Column(name = "role")
     private String role;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at")
     private Instant createdAt;
 
@@ -38,6 +40,9 @@ public class UserAuth {
 
     @OneToMany(mappedBy = "user")
     private Set<UserDetail> userDetails = new LinkedHashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provider")
+    private AuthProvider provider;
 
     public Long getId() {
         return id;
@@ -101,6 +106,14 @@ public class UserAuth {
 
     public void setUserDetails(Set<UserDetail> userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public AuthProvider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
     }
 
 }

@@ -31,9 +31,7 @@ public class Vehicle {
     @Column(name = "img_url", length = 500)
     private String imgUrl;
 
-    @ColumnDefault("'available'")
-    @Lob
-    @Column(name = "status")
+    @Column(name = "status", length = 20)
     private String status;
 
     @Column(name = "last_service_date")
