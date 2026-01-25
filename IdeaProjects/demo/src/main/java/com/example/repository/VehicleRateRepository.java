@@ -14,4 +14,5 @@ public interface VehicleRateRepository extends JpaRepository<VehicleRate, Long> 
     // Custom query to find rates for a specific vehicle type
     @Query("SELECT vr FROM VehicleRate vr WHERE vr.vehicleType.id = :vehicleTypeId")
     List<VehicleRate> findByVehicleTypeId(@Param("vehicleTypeId") Long vehicleTypeId);
+//    List<VehicleRate> findByVehicleType_VehicleTypeId(Long vehicleTypeId);
 }

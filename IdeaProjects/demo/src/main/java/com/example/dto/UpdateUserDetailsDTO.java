@@ -1,24 +1,10 @@
 package com.example.dto;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
-public class BookingRequestDTO {
-    // Booking fields
-    private Long userId;
-    private Long vehicleId;
-    private Long rateId;
-    private Long pickupHubId;
-    private Long returnHubId;
-    private Instant pickupDatetime;      // Changed to Instant
-    private Instant returnDatetime;      // Changed to Instant
-    private Long addonId;
-
-
-    // Customer details fields
+public class UpdateUserDetailsDTO {
     private String firstName;
     private String lastName;
-    private String email;
     private String address;
     private Long cityId;
     private String zipcode;
@@ -33,35 +19,11 @@ public class BookingRequestDTO {
     private LocalDate dipValidTill;
 
     // Getters and Setters
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
-
-    public Long getVehicleId() { return vehicleId; }
-    public void setVehicleId(Long vehicleId) { this.vehicleId = vehicleId; }
-
-    public Long getRateId() { return rateId; }
-    public void setRateId(Long rateId) { this.rateId = rateId; }
-
-    public Long getPickupHubId() { return pickupHubId; }
-    public void setPickupHubId(Long pickupHubId) { this.pickupHubId = pickupHubId; }
-
-    public Long getReturnHubId() { return returnHubId; }
-    public void setReturnHubId(Long returnHubId) { this.returnHubId = returnHubId; }
-
-    public Instant getPickupDatetime() { return pickupDatetime; }
-    public void setPickupDatetime(Instant pickupDatetime) { this.pickupDatetime = pickupDatetime; }
-
-    public Instant getReturnDatetime() { return returnDatetime; }
-    public void setReturnDatetime(Instant returnDatetime) { this.returnDatetime = returnDatetime; }
-
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
@@ -98,7 +60,4 @@ public class BookingRequestDTO {
 
     public LocalDate getDipValidTill() { return dipValidTill; }
     public void setDipValidTill(LocalDate dipValidTill) { this.dipValidTill = dipValidTill; }
-    public Long getAddonId() { return addonId; }
-    public void setAddonId(Long addonId) { this.addonId = addonId; }
-
 }
