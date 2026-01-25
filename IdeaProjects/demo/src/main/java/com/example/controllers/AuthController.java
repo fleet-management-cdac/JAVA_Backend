@@ -27,6 +27,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponseDTO<LoginResponseDTO>> login(
             @RequestBody LoginRequestDTO request) {
@@ -38,7 +39,7 @@ public class AuthController {
         }
     }
 
-//forgot password endpoints
+    // forgot password endpoints
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponseDTO<String>> forgotPassword(@RequestBody ForgetPasswordRequestDTO request) {
         // Always 200 OK
@@ -56,5 +57,10 @@ public class AuthController {
         }
     }
 
+    // TEMPORARY: Create staff user - Remove after use!
+    @PostMapping("/create-staff-temp")
+    public ResponseEntity<ApiResponseDTO<String>> createStaffTemp() {
+        return ResponseEntity.ok(authService.createStaffUser("staff@fleman.com", "Staff@123"));
+    }
 
 }

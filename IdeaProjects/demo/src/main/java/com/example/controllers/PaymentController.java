@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controllers;
 
 import com.example.dto.ApiResponseDTO;
 import com.example.service.PaymentService;
