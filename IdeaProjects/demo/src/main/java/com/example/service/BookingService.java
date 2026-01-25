@@ -40,6 +40,8 @@ public class BookingService {
 
     @Autowired
     private CityMasterRepository cityMasterRepository;
+    @Autowired
+    private AddonRepository addonRepository;  // Add this after other repositories
 
     // ========== CREATE BOOKING ==========
     @Transactional
@@ -101,6 +103,11 @@ public class BookingService {
         booking.setReturnDatetime(request.getReturnDatetime());
         booking.setStatus("reserved");
         booking.setCreatedAt(Instant.now());
+        // Set addon if provided
+        if (request.getAddonId() != null) {
+            Addon addon = addonRepository.findById(request.getAddonId()).orElse(null);
+            booking.setAddon(addon);
+        }
 
         // Save booking first
         booking = bookingRepository.save(booking);

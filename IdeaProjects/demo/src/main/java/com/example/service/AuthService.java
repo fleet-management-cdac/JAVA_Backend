@@ -199,4 +199,19 @@ public class AuthService {
         return ApiResponseDTO.success("Password updated successfully.", null);
     }
 
+    public ApiResponseDTO<String> createStaffUser(String email, String password) {
+        if (userAuthRepository.existsByEmail(email)) {
+            return ApiResponseDTO.error("Email already exists");
+        }
+
+        UserAuth staff = new UserAuth();
+        staff.setEmail(email);
+        staff.setPasswordHash(passwordEncoder.encode(password));
+        staff.setRole("staff");
+        staff.setCreatedAt(Instant.now());
+        userAuthRepository.save(staff);
+
+        return ApiResponseDTO.success("Staff user created successfully", null);
+    }
+
 }
