@@ -41,7 +41,7 @@ public class BookingService {
     @Autowired
     private CityMasterRepository cityMasterRepository;
     @Autowired
-    private AddonRepository addonRepository;  // Add this after other repositories
+    private AddonRepository addonRepository; // Add this after other repositories
 
     // ========== CREATE BOOKING ==========
     @Transactional
@@ -158,8 +158,7 @@ public class BookingService {
                     booking.getPickupDatetime(),
                     booking.getReturnDatetime(),
                     request.getAddress(),
-                    request.getPhoneCell()
-            );
+                    request.getPhoneCell());
             System.out.println("✅ Confirmation email sent to: " + request.getEmail());
         } catch (Exception e) {
             System.err.println("⚠️ Failed to send confirmation email: " + e.getMessage());
@@ -184,7 +183,7 @@ public class BookingService {
 
     // ========== GET ALL BOOKINGS ==========
     public ApiResponseDTO<List<BookingResponseDTO>> getAllBookings() {
-        List<Booking> bookings = bookingRepository.findAll();
+        List<Booking> bookings = bookingRepository.findAllWithDetails();
         List<BookingResponseDTO> responses = new ArrayList<>();
 
         for (Booking booking : bookings) {
@@ -227,7 +226,8 @@ public class BookingService {
             }
         }
 
-        return ApiResponseDTO.success("Booking status updated", buildBookingResponse(booking, booking.getBookingCustomerDetail()));
+        return ApiResponseDTO.success("Booking status updated",
+                buildBookingResponse(booking, booking.getBookingCustomerDetail()));
     }
 
     // ========== DELETE BOOKING ==========
@@ -256,6 +256,52 @@ public class BookingService {
         return ApiResponseDTO.success("Booking deleted", null);
     }
 
+    // ========== ASSIGN VEHICLE TO BOOKING ==========
+    @Transactional
+    public ApiResponseDTO<BookingResponseDTO> assignVehicle(Long bookingId, Long vehicleId) {
+        Optional<Booking> bookingOpt = bookingRepository.findById(bookingId);
+
+        if (bookingOpt.isEmpty()) {
+            return ApiResponseDTO.error("Booking not found");
+        }
+
+        Booking booking = bookingOpt.get();
+
+        // Check if booking is in valid status for vehicle assignment
+        if (!"reserved".equals(booking.getStatus())) {
+            return ApiResponseDTO.error("Can only assign vehicle to 'reserved' bookings");
+        }
+
+        // Fetch new vehicle
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(vehicleId);
+        if (vehicleOpt.isEmpty()) {
+            return ApiResponseDTO.error("Vehicle not found");
+        }
+
+        Vehicle newVehicle = vehicleOpt.get();
+
+        // Check if vehicle is available
+        if (!"available".equals(newVehicle.getStatus())) {
+            return ApiResponseDTO.error("Vehicle is not available");
+        }
+
+        // If there was a previous vehicle, mark it as available
+        Vehicle oldVehicle = booking.getVehicle();
+        if (oldVehicle != null && !oldVehicle.getId().equals(vehicleId)) {
+            oldVehicle.setStatus("available");
+            vehicleRepository.save(oldVehicle);
+        }
+
+        // Assign new vehicle and mark as rented
+        booking.setVehicle(newVehicle);
+        newVehicle.setStatus("rented");
+        vehicleRepository.save(newVehicle);
+        booking = bookingRepository.save(booking);
+
+        return ApiResponseDTO.success("Vehicle assigned successfully",
+                buildBookingResponse(booking, booking.getBookingCustomerDetail()));
+    }
+
     // ========== HELPER METHOD ==========
     private BookingResponseDTO buildBookingResponse(Booking booking, BookingCustomerDetail cd) {
         BookingResponseDTO response = new BookingResponseDTO();
@@ -273,13 +319,24 @@ public class BookingService {
         if (booking.getVehicle() != null) {
             response.setVehicleName(booking.getVehicle().getCompany() + " " + booking.getVehicle().getModel());
             response.setVehicleRegistration(booking.getVehicle().getRegistrationNo());
+            // Get vehicle type from the vehicle
+            if (booking.getVehicle().getVehicleType() != null) {
+                response.setVehicleTypeId(booking.getVehicle().getVehicleType().getId());
+                response.setVehicleTypeName(booking.getVehicle().getVehicleType().getTypeName());
+            }
         }
 
+        // Get vehicle type from rate if not set from vehicle
         if (booking.getRate() != null) {
             response.setRatePlan(booking.getRate().getPlans());
+            if (response.getVehicleTypeId() == null && booking.getRate().getVehicleType() != null) {
+                response.setVehicleTypeId(booking.getRate().getVehicleType().getId());
+                response.setVehicleTypeName(booking.getRate().getVehicleType().getTypeName());
+            }
         }
 
         if (booking.getPickupHub() != null) {
+            response.setPickupHubId(booking.getPickupHub().getId());
             response.setPickupHub(booking.getPickupHub().getHubName());
         }
 

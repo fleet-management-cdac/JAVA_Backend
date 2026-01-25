@@ -25,6 +25,10 @@ public class Handover {
     @JoinColumn(name = "processed_by")
     private UserAuth processedBy;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
     @Column(name = "fuel_status", length = 20)
     private String fuelStatus;
 
@@ -65,6 +69,14 @@ public class Handover {
 
     public void setProcessedBy(UserAuth processedBy) {
         this.processedBy = processedBy;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public String getFuelStatus() {

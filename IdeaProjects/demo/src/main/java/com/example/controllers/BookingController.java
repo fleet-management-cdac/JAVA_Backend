@@ -90,4 +90,19 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
+    // ASSIGN VEHICLE - Staff assigns a specific vehicle to booking
+    @PatchMapping("/{bookingId}/assign-vehicle")
+    public ResponseEntity<ApiResponseDTO<BookingResponseDTO>> assignVehicle(
+            @PathVariable Long bookingId,
+            @RequestParam Long vehicleId) {
+
+        ApiResponseDTO<BookingResponseDTO> response = bookingService.assignVehicle(bookingId, vehicleId);
+
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }
