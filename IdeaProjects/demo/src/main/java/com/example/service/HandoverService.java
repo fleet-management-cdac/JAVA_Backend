@@ -29,6 +29,9 @@ public class HandoverService {
     @Autowired
     private UserDetailRepository userDetailRepository;
 
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
     // ========== CREATE HANDOVER ==========
     @Transactional
     public ApiResponseDTO<HandoverResponseDTO> createHandover(HandoverRequestDTO request) {
@@ -38,6 +41,9 @@ public class HandoverService {
         }
         if (request.getProcessedBy() == null) {
             return ApiResponseDTO.error("Processed by (Staff ID) is required");
+        }
+        if (request.getVehicleId() == null) {
+            return ApiResponseDTO.error("Vehicle ID is required");
         }
         if (request.getFuelStatus() == null || request.getFuelStatus().isBlank()) {
             return ApiResponseDTO.error("Fuel status is required");
@@ -63,6 +69,28 @@ public class HandoverService {
         }
 
         UserAuth staff = staffOpt.get();
+
+        // Fetch vehicle
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(request.getVehicleId());
+        if (vehicleOpt.isEmpty()) {
+            return ApiResponseDTO.error("Vehicle not found");
+        }
+
+        Vehicle vehicle = vehicleOpt.get();
+
+        // Check vehicle is available
+        if (!"available".equals(vehicle.getStatus())) {
+            return ApiResponseDTO.error("Vehicle is not available");
+        }
+
+        // Assign vehicle to booking
+        booking.setVehicle(vehicle);
+        booking.setStatus("active");
+        bookingRepository.save(booking);
+
+        // Update vehicle status to rented
+        vehicle.setStatus("rented");
+        vehicleRepository.save(vehicle);
 
         // Create handover
         Handover handover = new Handover();

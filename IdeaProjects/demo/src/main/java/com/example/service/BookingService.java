@@ -253,6 +253,7 @@ public class BookingService {
 
         bookingRepository.delete(booking);
 
+
         return ApiResponseDTO.success("Booking deleted", null);
     }
 
@@ -285,6 +286,17 @@ public class BookingService {
 
         if (booking.getReturnHub() != null) {
             response.setReturnHub(booking.getReturnHub().getHubName());
+        }
+        if (booking.getVehicle() != null) {
+            Vehicle vehicle = booking.getVehicle();
+            response.setVehicleName(vehicle.getCompany() + " " + vehicle.getModel());
+            response.setVehicleRegistration(vehicle.getRegistrationNo());
+
+            // Add vehicle type info
+            if (vehicle.getVehicleType() != null) {
+                response.setVehicleTypeId(vehicle.getVehicleType().getId());
+                response.setVehicleTypeName(vehicle.getVehicleType().getTypeName());
+            }
         }
 
         if (cd != null) {
