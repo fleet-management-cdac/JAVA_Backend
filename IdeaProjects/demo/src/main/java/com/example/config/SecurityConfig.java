@@ -32,12 +32,27 @@ public class SecurityConfig {
     @Autowired
     private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
+    // ========== 1. ACTUATOR SECURITY (Public & Stateless) ==========
+    @Bean
+    @Order(0) // HIGHEST PRIORITY - Checks this first!
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/actuator/**") // Only matches actuator URLs
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()); // Force allow everything here
+
+        return http.build();
+    }
+
     // ========== API SECURITY (No OAuth2, completely stateless) ==========
     @Bean
     @Order(1)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/**")  // Only apply to /api/** paths
+                .securityMatcher("/api/**", "/actuator/**")  // Only apply to /api/** paths
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
@@ -64,6 +79,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo
