@@ -20,8 +20,8 @@ public class Booking {
     private UserAuth user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    @JoinColumn(name = "vehicle_type_id")
+    private VehicleType vehicleType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rate_id")
@@ -77,12 +77,12 @@ public class Booking {
         this.user = user;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public VehicleRate getRate() {

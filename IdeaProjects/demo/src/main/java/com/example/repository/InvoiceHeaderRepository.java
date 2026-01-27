@@ -11,16 +11,16 @@ import java.util.Optional;
 @Repository
 public interface InvoiceHeaderRepository extends JpaRepository<InvoiceHeader, Long> {
 
-    // Fixed: Changed bookingCustomerDetail to bookingCustomer
-    @Query("SELECT i FROM InvoiceHeader i " +
-            "LEFT JOIN FETCH i.bookingCustomer bcd " +
-            "LEFT JOIN FETCH bcd.booking b " +
-            "LEFT JOIN FETCH b.vehicle " +
-            "WHERE i.id = :invoiceId")
-    Optional<InvoiceHeader> findByIdWithDetails(@Param("invoiceId") Long invoiceId);
+        // Fixed: vehicle is now on vehicleType in booking
+        @Query("SELECT i FROM InvoiceHeader i " +
+                        "LEFT JOIN FETCH i.bookingCustomer bcd " +
+                        "LEFT JOIN FETCH bcd.booking b " +
+                        "LEFT JOIN FETCH b.vehicleType " +
+                        "WHERE i.id = :invoiceId")
+        Optional<InvoiceHeader> findByIdWithDetails(@Param("invoiceId") Long invoiceId);
 
-    // Fixed: Changed bookingCustomerDetail to bookingCustomer
-    @Query("SELECT i FROM InvoiceHeader i " +
-            "WHERE i.bookingCustomer.booking.id = :bookingId")
-    Optional<InvoiceHeader> findByBookingId(@Param("bookingId") Long bookingId);
+        // Fixed: Changed bookingCustomerDetail to bookingCustomer
+        @Query("SELECT i FROM InvoiceHeader i " +
+                        "WHERE i.bookingCustomer.booking.id = :bookingId")
+        Optional<InvoiceHeader> findByBookingId(@Param("bookingId") Long bookingId);
 }

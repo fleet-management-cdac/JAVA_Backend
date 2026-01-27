@@ -92,10 +92,10 @@ public class InvoiceService {
             totalDays = 1;
         }
 
-        // Get vehicle type ID
-        Vehicle vehicle = booking.getVehicle();
+        // Get vehicle from handover (not from booking anymore)
+        Vehicle vehicle = handover.getVehicle();
         if (vehicle == null || vehicle.getVehicleType() == null) {
-            return ApiResponseDTO.error("Vehicle type not found");
+            return ApiResponseDTO.error("Vehicle not found in handover");
         }
 
         Long vehicleTypeId = vehicle.getVehicleType().getId();
@@ -190,8 +190,7 @@ public class InvoiceService {
                     customerDetail.getEmail(),
                     response.getCustomerName(),
                     booking.getId(),
-                    pdfBytes
-            );
+                    pdfBytes);
 
             System.out.println("✅ Invoice PDF sent to: " + customerDetail.getEmail());
         } catch (Exception e) {
@@ -203,7 +202,7 @@ public class InvoiceService {
 
     // ========== SMART RENTAL CALCULATION ==========
     private RentalCalculation calculateSmartRental(long totalDays,
-                                                   BigDecimal dailyRate, BigDecimal weeklyRate, BigDecimal monthlyRate) {
+            BigDecimal dailyRate, BigDecimal weeklyRate, BigDecimal monthlyRate) {
 
         RentalCalculation calc = new RentalCalculation();
         long remainingDays = totalDays;
@@ -214,7 +213,8 @@ public class InvoiceService {
             calc.months = remainingDays / 30;
             remainingDays = remainingDays % 30;
             calc.monthlyAmount = monthlyRate.multiply(BigDecimal.valueOf(calc.months));
-            breakdown.append(calc.months).append(" month(s) × ₹").append(monthlyRate).append(" = ₹").append(calc.monthlyAmount);
+            breakdown.append(calc.months).append(" month(s) × ₹").append(monthlyRate).append(" = ₹")
+                    .append(calc.monthlyAmount);
         }
 
         // Calculate weeks (7 days each)
@@ -222,15 +222,18 @@ public class InvoiceService {
             calc.weeks = remainingDays / 7;
             remainingDays = remainingDays % 7;
             calc.weeklyAmount = weeklyRate.multiply(BigDecimal.valueOf(calc.weeks));
-            if (breakdown.length() > 0) breakdown.append(" + ");
-            breakdown.append(calc.weeks).append(" week(s) × ₹").append(weeklyRate).append(" = ₹").append(calc.weeklyAmount);
+            if (breakdown.length() > 0)
+                breakdown.append(" + ");
+            breakdown.append(calc.weeks).append(" week(s) × ₹").append(weeklyRate).append(" = ₹")
+                    .append(calc.weeklyAmount);
         }
 
         // Remaining days
         if (remainingDays > 0 && dailyRate.compareTo(BigDecimal.ZERO) > 0) {
             calc.days = remainingDays;
             calc.dailyAmount = dailyRate.multiply(BigDecimal.valueOf(calc.days));
-            if (breakdown.length() > 0) breakdown.append(" + ");
+            if (breakdown.length() > 0)
+                breakdown.append(" + ");
             breakdown.append(calc.days).append(" day(s) × ₹").append(dailyRate).append(" = ₹").append(calc.dailyAmount);
         }
 
@@ -299,9 +302,12 @@ public class InvoiceService {
                 Booking booking = cd.getBooking();
                 response.setBookingId(booking.getId());
 
-                if (booking.getVehicle() != null) {
-                    response.setVehicleName(booking.getVehicle().getCompany() + " " + booking.getVehicle().getModel());
-                    response.setVehicleRegistration(booking.getVehicle().getRegistrationNo());
+                // Get vehicle from handover
+                List<Handover> handovers = handoverRepository.findByBookingId(booking.getId());
+                if (!handovers.isEmpty() && handovers.get(0).getVehicle() != null) {
+                    Vehicle vehicle = handovers.get(0).getVehicle();
+                    response.setVehicleName(vehicle.getCompany() + " " + vehicle.getModel());
+                    response.setVehicleRegistration(vehicle.getRegistrationNo());
                 }
             }
         }

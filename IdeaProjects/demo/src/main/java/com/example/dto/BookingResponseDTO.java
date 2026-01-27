@@ -16,6 +16,8 @@ public class BookingResponseDTO {
    private Instant returnDatetime;
    private String status;
    private Instant createdAt;
+   private Long vehicleTypeId;
+   private String vehicleTypeName;
 
    // Customer details fields
    private Long bookingCustomerId;
@@ -45,7 +47,11 @@ public class BookingResponseDTO {
 
    public String getVehicleName() { return vehicleName; }
    public void setVehicleName(String vehicleName) { this.vehicleName = vehicleName; }
+   public Long getVehicleTypeId() { return vehicleTypeId; }
+   public void setVehicleTypeId(Long vehicleTypeId) { this.vehicleTypeId = vehicleTypeId; }
 
+   public String getVehicleTypeName() { return vehicleTypeName; }
+   public void setVehicleTypeName(String vehicleTypeName) { this.vehicleTypeName = vehicleTypeName; }
    public String getVehicleRegistration() { return vehicleRegistration; }
    public void setVehicleRegistration(String vehicleRegistration) { this.vehicleRegistration = vehicleRegistration; }
 

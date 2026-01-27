@@ -29,6 +29,9 @@ public class HandoverService {
     @Autowired
     private UserDetailRepository userDetailRepository;
 
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
     // ========== CREATE HANDOVER ==========
     @Transactional
     public ApiResponseDTO<HandoverResponseDTO> createHandover(HandoverRequestDTO request) {
@@ -38,6 +41,9 @@ public class HandoverService {
         }
         if (request.getProcessedBy() == null) {
             return ApiResponseDTO.error("Processed by (Staff ID) is required");
+        }
+        if (request.getVehicleId() == null) {
+            return ApiResponseDTO.error("Vehicle ID is required");
         }
         if (request.getFuelStatus() == null || request.getFuelStatus().isBlank()) {
             return ApiResponseDTO.error("Fuel status is required");
@@ -64,9 +70,31 @@ public class HandoverService {
 
         UserAuth staff = staffOpt.get();
 
-        // Create handover
+        // Fetch vehicle
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(request.getVehicleId());
+        if (vehicleOpt.isEmpty()) {
+            return ApiResponseDTO.error("Vehicle not found");
+        }
+
+        Vehicle vehicle = vehicleOpt.get();
+
+        // Check vehicle is available
+        if (!"available".equals(vehicle.getStatus())) {
+            return ApiResponseDTO.error("Vehicle is not available");
+        }
+
+        // Update booking status to active (no longer storing vehicle on booking)
+        booking.setStatus("active");
+        bookingRepository.save(booking);
+
+        // Update vehicle status to rented
+        vehicle.setStatus("rented");
+        vehicleRepository.save(vehicle);
+
+        // Create handover with vehicle
         Handover handover = new Handover();
         handover.setBooking(booking);
+        handover.setVehicle(vehicle); // Store vehicle on handover
         handover.setProcessedBy(staff);
         handover.setFuelStatus(request.getFuelStatus());
         handover.setCreatedAt(Instant.now());
@@ -110,8 +138,10 @@ public class HandoverService {
             Booking booking = handover.getBooking();
             response.setBookingId(booking.getId());
 
-            if (booking.getVehicle() != null) {
-                response.setVehicleName(booking.getVehicle().getCompany() + " " + booking.getVehicle().getModel());
+            // Get vehicle from handover, not from booking
+            if (handover.getVehicle() != null) {
+                Vehicle vehicle = handover.getVehicle();
+                response.setVehicleName(vehicle.getCompany() + " " + vehicle.getModel());
             }
 
             if (booking.getBookingCustomerDetail() != null) {
