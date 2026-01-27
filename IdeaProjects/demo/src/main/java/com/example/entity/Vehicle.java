@@ -48,7 +48,7 @@ public class Vehicle {
     private String description;
 
     @OneToMany(mappedBy = "vehicle")
-    private Set<Booking> bookings = new LinkedHashSet<>();
+    private Set<Handover> handovers = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -138,12 +138,12 @@ public class Vehicle {
         this.description = description;
     }
 
-    public Set<Booking> getBookings() {
-        return bookings;
+    public Set<Handover> getHandovers() {
+        return handovers;
     }
 
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
+    public void setHandovers(Set<Handover> handovers) {
+        this.handovers = handovers;
     }
 
 }

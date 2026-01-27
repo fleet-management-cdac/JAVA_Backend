@@ -83,8 +83,7 @@ public class HandoverService {
             return ApiResponseDTO.error("Vehicle is not available");
         }
 
-        // Assign vehicle to booking
-        booking.setVehicle(vehicle);
+        // Update booking status to active (no longer storing vehicle on booking)
         booking.setStatus("active");
         bookingRepository.save(booking);
 
@@ -92,9 +91,10 @@ public class HandoverService {
         vehicle.setStatus("rented");
         vehicleRepository.save(vehicle);
 
-        // Create handover
+        // Create handover with vehicle
         Handover handover = new Handover();
         handover.setBooking(booking);
+        handover.setVehicle(vehicle); // Store vehicle on handover
         handover.setProcessedBy(staff);
         handover.setFuelStatus(request.getFuelStatus());
         handover.setCreatedAt(Instant.now());
@@ -138,8 +138,10 @@ public class HandoverService {
             Booking booking = handover.getBooking();
             response.setBookingId(booking.getId());
 
-            if (booking.getVehicle() != null) {
-                response.setVehicleName(booking.getVehicle().getCompany() + " " + booking.getVehicle().getModel());
+            // Get vehicle from handover, not from booking
+            if (handover.getVehicle() != null) {
+                Vehicle vehicle = handover.getVehicle();
+                response.setVehicleName(vehicle.getCompany() + " " + vehicle.getModel());
             }
 
             if (booking.getBookingCustomerDetail() != null) {
