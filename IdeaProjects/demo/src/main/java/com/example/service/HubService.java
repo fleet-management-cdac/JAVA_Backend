@@ -7,8 +7,13 @@ import com.example.entity.StateMaster;
 import com.example.repository.HubMasterRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -21,16 +26,23 @@ import java.util.stream.Collectors;
 public class HubService {
 
     private final HubMasterRepository hubRepository;
+    private final RestTemplate restTemplate; // 1. Declare RestTemplate
 
-    public HubService(HubMasterRepository hubRepository) {
+    // 2. Inject RestTemplate via Constructor
+    public HubService(HubMasterRepository hubRepository, RestTemplate restTemplate) {
         this.hubRepository = hubRepository;
+        this.restTemplate = restTemplate;
     }
 
-    // --- FETCH HUBS BY CITY ---
+    // 3. Define .NET API URL (Add "dotnet.api.url" to your application.properties)
+    // Example: dotnet.api.url=http://localhost:5000/api/hubs/sync
+    @Value("${dotnet.api.url:http://localhost:5000/api/hubs/sync}")
+    private String dotNetApiUrl;
+
+    // --- EXISTING FETCH METHOD ---
     public List<HubMasterDTO> getHubsByCity(Long cityId) {
         List<HubMaster> hubs = hubRepository.findByCity_Id(cityId);
 
-        // Safety: Ensure we never return null to the Frontend
         if (hubs == null) return new ArrayList<>();
 
         return hubs.stream()
@@ -42,7 +54,7 @@ public class HubService {
                 .collect(Collectors.toList());
     }
 
-    // --- EXCEL UPLOAD METHOD ---
+    // --- UPDATED EXCEL UPLOAD METHOD ---
     @Transactional
     public void saveHubsFromExcel(MultipartFile file) {
         try (InputStream is = file.getInputStream();
@@ -63,39 +75,33 @@ public class HubService {
             while (rows.hasNext()) {
                 Row row = rows.next();
 
-                // 1. Read Cells safely
                 String name = getCellValue(row.getCell(0));
                 String address = getCellValue(row.getCell(1));
                 String cityIdStr = getCellValue(row.getCell(2));
                 String stateIdStr = getCellValue(row.getCell(3));
 
-                // Basic Validation
                 if (name != null && !name.isEmpty() && cityIdStr != null && !cityIdStr.isEmpty()) {
                     try {
                         Long cityId = (long) Double.parseDouble(cityIdStr);
-
-                        // --- 2. CHECK DB: Get LIST of existing hubs ---
+                        // Check for duplicates
                         List<HubMaster> existingHubs = hubRepository.findByHubNameAndCity_Id(name, cityId);
                         HubMaster hub;
 
                         if (!existingHubs.isEmpty()) {
                             hub = existingHubs.get(0);
-                            System.out.println("DEBUG: Found existing Hub (ID: " + hub.getId() + "). Updating...");
+                            System.out.println("DEBUG: Updating Hub ID: " + hub.getId());
                         } else {
                             hub = new HubMaster();
                             System.out.println("DEBUG: Creating NEW Hub: " + name);
                         }
 
-                        // --- 3. Update Fields ---
                         hub.setHubName(name);
                         hub.setHubAddress(address);
 
-                        // Set City
                         CityMaster city = new CityMaster();
                         city.setId(cityId);
                         hub.setCity(city);
 
-                        // Set State
                         if (stateIdStr != null && !stateIdStr.isEmpty()) {
                             Long stateId = (long) Double.parseDouble(stateIdStr);
                             StateMaster state = new StateMaster();
@@ -111,10 +117,15 @@ public class HubService {
                 }
             }
 
-            // --- 4. Save All ---
+            // --- 4. Save to MySQL & Call .NET API ---
             if (!hubsToSave.isEmpty()) {
-                hubRepository.saveAll(hubsToSave);
-                System.out.println("DEBUG: Database Sync Complete. Processed " + hubsToSave.size() + " items.");
+                // A. Save to Local MySQL
+                List<HubMaster> savedHubs = hubRepository.saveAll(hubsToSave);
+                System.out.println("DEBUG: MySQL Sync Complete. Saved " + savedHubs.size() + " items.");
+
+                // B. Call .NET API
+                syncWithDotNetApi(savedHubs);
+
             } else {
                 System.out.println("DEBUG: No valid data found to save.");
             }
@@ -125,7 +136,28 @@ public class HubService {
         }
     }
 
-    // Helper method
+    // --- 5. New Method to Call .NET API ---
+    private void syncWithDotNetApi(List<HubMaster> hubs) {
+        try {
+            System.out.println("DEBUG: Initiating call to .NET API at " + dotNetApiUrl);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            // Wrap the list in HttpEntity
+            HttpEntity<List<HubMaster>> requestEntity = new HttpEntity<>(hubs, headers);
+
+            // Make POST call
+            String response = restTemplate.postForObject(dotNetApiUrl, requestEntity, String.class);
+
+            System.out.println("DEBUG: .NET API Response: " + response);
+
+        } catch (Exception e) {
+            // Log error but do not fail the transaction, so MySQL data remains saved
+            System.err.println("ERROR: Failed to sync with .NET API: " + e.getMessage());
+        }
+    }
+
     private String getCellValue(Cell cell) {
         if (cell == null) return "";
         if (cell.getCellType() == CellType.NUMERIC) {
