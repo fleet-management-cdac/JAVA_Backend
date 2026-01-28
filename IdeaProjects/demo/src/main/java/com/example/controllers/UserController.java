@@ -16,11 +16,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/details/{userDetailId}")
+    @GetMapping("/details/{userId}")
     public ResponseEntity<ApiResponseDTO<UserProfileDTO>> getUserDetailsById(
-            @PathVariable Long userDetailId) {
+            @PathVariable Long userId) {
 
-        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsById(userDetailId);
+        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsByUserId(userId);
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response);

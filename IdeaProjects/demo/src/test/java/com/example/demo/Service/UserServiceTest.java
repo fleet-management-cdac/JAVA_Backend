@@ -57,16 +57,17 @@ class UserServiceTest {
         sampleUserDetail.setLastName("Doe");
     }
 
-    // --- Tests for getUserDetailsById ---
+    // --- Tests for getUserDetailsByUserId ---
 
     @Test
-    @DisplayName("Should return user details when ID exists")
-    void getUserDetailsById_Success() {
+    @DisplayName("Should return user details when UserID exists")
+    void getUserDetailsByUserId_Success() {
         // Arrange
-        when(userDetailRepository.findByIdWithDetails(100L)).thenReturn(Optional.of(sampleUserDetail));
+        // Note: Repository now queried by UserId (1L), not DetailId (100L)
+        when(userDetailRepository.findByUserIdWithDetails(1L)).thenReturn(Optional.of(sampleUserDetail));
 
         // Act
-        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsById(100L);
+        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsByUserId(1L);
 
         // Assert
         assertTrue(response.isSuccess());
@@ -76,17 +77,35 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Should return error when user detail ID does not exist")
-    void getUserDetailsById_NotFound() {
+    @DisplayName("Should return partial details when UserAuth exists but UserDetail missing")
+    void getUserDetailsByUserId_Fallback() {
         // Arrange
-        when(userDetailRepository.findByIdWithDetails(1L)).thenReturn(Optional.empty());
+        when(userDetailRepository.findByUserIdWithDetails(1L)).thenReturn(Optional.empty());
+        when(userAuthRepository.findById(1L)).thenReturn(Optional.of(sampleUserAuth));
 
         // Act
-        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsById(1L);
+        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsByUserId(1L);
+
+        // Assert
+        assertTrue(response.isSuccess());
+        assertEquals("User found (profile incomplete)", response.getMessage());
+        assertEquals("test@example.com", response.getData().getEmail());
+        assertNull(response.getData().getFirstName()); // First name should be null
+    }
+
+    @Test
+    @DisplayName("Should return error when user does not exist")
+    void getUserDetailsByUserId_NotFound() {
+        // Arrange
+        when(userDetailRepository.findByUserIdWithDetails(99L)).thenReturn(Optional.empty());
+        when(userAuthRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // Act
+        ApiResponseDTO<UserProfileDTO> response = userService.getUserDetailsByUserId(99L);
 
         // Assert
         assertFalse(response.isSuccess());
-        assertEquals("User details not found", response.getMessage());
+        assertEquals("User not found", response.getMessage());
     }
 
     // --- Tests for updateUserDetails ---

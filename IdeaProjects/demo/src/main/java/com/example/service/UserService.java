@@ -23,17 +23,34 @@ public class UserService {
     @Autowired
     private CityMasterRepository cityMasterRepository;
 
-    public ApiResponseDTO<UserProfileDTO> getUserDetailsById(Long userDetailId) {
+    public ApiResponseDTO<UserProfileDTO> getUserDetailsByUserId(Long userId) {
 
-        var userDetailOpt = userDetailRepository.findByIdWithDetails(userDetailId);
+        var userDetailOpt = userDetailRepository.findByUserIdWithDetails(userId);
 
-        if (userDetailOpt.isEmpty()) {
-            return ApiResponseDTO.error("User details not found");
+        if (userDetailOpt.isPresent()) {
+            UserDetail ud = userDetailOpt.get();
+            UserProfileDTO dto = mapToDTO(ud);
+            return ApiResponseDTO.success("User details fetched", dto);
         }
 
-        UserDetail ud = userDetailOpt.get();
-        UserProfileDTO dto = new UserProfileDTO();
+        // Fallback: If user details don't exist, check if UserAuth exists (e.g. new
+        // user)
+        var userAuthOpt = userAuthRepository.findById(userId);
+        if (userAuthOpt.isPresent()) {
+            var user = userAuthOpt.get();
+            UserProfileDTO dto = new UserProfileDTO();
+            dto.setUserId(user.getId());
+            dto.setEmail(user.getEmail());
+            dto.setRole(user.getRole());
+            // Return empty profile with basic auth info
+            return ApiResponseDTO.success("User found (profile incomplete)", dto);
+        }
 
+        return ApiResponseDTO.error("User not found");
+    }
+
+    private UserProfileDTO mapToDTO(UserDetail ud) {
+        UserProfileDTO dto = new UserProfileDTO();
         dto.setUserDetailsId(ud.getId());
 
         // From UserAuth
@@ -65,12 +82,8 @@ public class UserService {
                 dto.setStateName(ud.getCity().getState().getStateName());
             }
         }
-
-        return ApiResponseDTO.success("User details fetched", dto);
+        return dto;
     }
-
-
-
 
     @Transactional
     public ApiResponseDTO<UserProfileDTO> updateUserDetails(Long userId, UpdateUserDetailsDTO request) {

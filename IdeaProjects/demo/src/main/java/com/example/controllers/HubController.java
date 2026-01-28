@@ -28,11 +28,18 @@ public class HubController {
     }
 
     // --- NEW UPLOAD METHOD (Add this below) ---
+    // --- NEW UPLOAD METHOD (Add this below) ---
     @PostMapping("/upload")
     public ResponseEntity<String> uploadHubs(@RequestParam("file") MultipartFile file) {
         try {
-            hubService.saveHubsFromExcel(file);
-            return ResponseEntity.ok("Hubs uploaded successfully!");
+            String filename = file.getOriginalFilename();
+            if (filename != null && filename.toLowerCase().endsWith(".csv")) {
+                hubService.saveHubsFromCsv(file);
+                return ResponseEntity.ok("Hubs (CSV) uploaded successfully!");
+            } else {
+                hubService.saveHubsFromExcel(file);
+                return ResponseEntity.ok("Hubs (Excel) uploaded successfully!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error uploading file: " + e.getMessage());
