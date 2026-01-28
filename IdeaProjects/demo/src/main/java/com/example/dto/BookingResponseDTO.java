@@ -10,7 +10,10 @@ public class BookingResponseDTO {
    private String vehicleName;
    private String vehicleRegistration;
    private String ratePlan;
+   private Long pickupHubId;
    private String pickupHub;
+
+   private Long returnHubId;
    private String returnHub;
    private Instant pickupDatetime;
    private Instant returnDatetime;
@@ -58,11 +61,18 @@ public class BookingResponseDTO {
    public String getRatePlan() { return ratePlan; }
    public void setRatePlan(String ratePlan) { this.ratePlan = ratePlan; }
 
+   public Long getPickupHubId() { return pickupHubId; }
+   public void setPickupHubId(Long pickupHubId) { this.pickupHubId = pickupHubId; }
+
    public String getPickupHub() { return pickupHub; }
    public void setPickupHub(String pickupHub) { this.pickupHub = pickupHub; }
 
+   public Long getReturnHubId() { return returnHubId; }
+   public void setReturnHubId(Long returnHubId) { this.returnHubId = returnHubId; }
+
    public String getReturnHub() { return returnHub; }
    public void setReturnHub(String returnHub) { this.returnHub = returnHub; }
+
 
    public Instant getPickupDatetime() { return pickupDatetime; }
    public void setPickupDatetime(Instant pickupDatetime) { this.pickupDatetime = pickupDatetime; }

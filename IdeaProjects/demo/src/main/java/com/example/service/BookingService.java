@@ -275,10 +275,12 @@ public class BookingService {
         }
 
         if (booking.getPickupHub() != null) {
+            response.setPickupHubId(booking.getPickupHub().getId());
             response.setPickupHub(booking.getPickupHub().getHubName());
         }
 
         if (booking.getReturnHub() != null) {
+            response.setReturnHubId(booking.getReturnHub().getId());
             response.setReturnHub(booking.getReturnHub().getHubName());
         }
 

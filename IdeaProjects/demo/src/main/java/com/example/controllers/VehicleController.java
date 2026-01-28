@@ -21,6 +21,7 @@ public class VehicleController {
     private VehicleTypeService vehicleTypeService;
     @Autowired
     private VehicleService vehicleService;
+
     /**
      * GET /api/vehicles/types-with-rates
      * Returns all vehicle types with their daily, weekly, monthly rates
@@ -30,6 +31,7 @@ public class VehicleController {
         List<VehicleTypeWithRatesDTO> vehicleTypes = vehicleTypeService.getAllVehicleTypesWithRates();
         return ResponseEntity.ok(vehicleTypes);
     }
+
     @GetMapping("/available-for-handover")
     public List<VehicleDTO> getAvailableVehicles(
             @RequestParam(required = false) Long hubId,
@@ -38,6 +40,18 @@ public class VehicleController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate returnDate) {
 
         return vehicleService.getAvailableVehiclesForHandover(hubId, vehicleTypeId, pickupDate, returnDate);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<VehicleDTO>> getAvailableVehiclesByTypeAndHub(
+            @RequestParam(required = true) Long vehicleTypeId,
+            @RequestParam(required = true) Long hubId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate pickupDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate returnDate) {
+
+        List<VehicleDTO> vehicles = vehicleService.getAvailableVehiclesByTypeAndHub(
+                vehicleTypeId, hubId, pickupDate, returnDate);
+        return ResponseEntity.ok(vehicles);
     }
 
 }

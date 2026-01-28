@@ -28,6 +28,54 @@ public class VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    /**
+     * Get available vehicles filtered by vehicleTypeId AND hubId
+     * WITH optional maintenance date filtering
+     *
+     * @param vehicleTypeId - Required: Vehicle type ID
+     * @param hubId         - Required: Hub ID
+     * @param pickupDate    - Optional: If provided (with returnDate), filters out
+     *                      vehicles with maintenance
+     * @param returnDate    - Optional: If provided (with pickupDate), filters out
+     *                      vehicles with maintenance
+     * @return List of available vehicles
+     */
+    public List<VehicleDTO> getAvailableVehiclesByTypeAndHub(
+            Long vehicleTypeId, Long hubId, LocalDate pickupDate, LocalDate returnDate) {
+
+        // 1. Fetch vehicles that match BOTH criteria and are available
+        List<Vehicle> vehicles = vehicleRepository.findByHubIdAndVehicleTypeIdAndStatus(
+                hubId,
+                vehicleTypeId,
+                VehicleStatus.available.name());
+
+        // 2. Filter out vehicles with maintenance during booking period (if dates
+        // provided)
+        if (pickupDate != null && returnDate != null) {
+            vehicles = vehicles.stream()
+                    .filter(v -> {
+                        LocalDate serviceDate = v.getNextServiceDate();
+
+                        // If no service date scheduled, vehicle is available
+                        if (serviceDate == null) {
+                            return true;
+                        }
+
+                        // Exclude vehicle if service date falls within booking period
+                        // Keep vehicle if service is BEFORE pickup or AFTER return
+                        return serviceDate.isBefore(pickupDate) || serviceDate.isAfter(returnDate);
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        // 3. Map to DTOs
+        return vehicles.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Keep the old method for backward compatibility if needed elsewhere
     public List<VehicleDTO> getAvailableVehiclesForHandover(
             Long hubId, Long vehicleTypeId, LocalDate pickupDate, LocalDate returnDate) {
 
@@ -50,7 +98,8 @@ public class VehicleService {
             vehicles = vehicles.stream()
                     .filter(v -> {
                         LocalDate serviceDate = v.getNextServiceDate();
-                        if (serviceDate == null) return true; // No scheduled maintenance
+                        if (serviceDate == null)
+                            return true; // No scheduled maintenance
                         // Exclude if service date is between pickup and return
                         return serviceDate.isBefore(pickupDate) || serviceDate.isAfter(returnDate);
                     })
@@ -60,6 +109,7 @@ public class VehicleService {
         // Map to DTOs
         return vehicles.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
+
     private VehicleDTO mapToDTO(Vehicle v) {
         VehicleDTO dto = new VehicleDTO();
         dto.setVehicleId(v.getId());
@@ -81,6 +131,7 @@ public class VehicleService {
         }
         return dto;
     }
+
     public List<VehicleCatalogDTO> getVehicleCatalogData(Long hubId) {
         List<VehicleCatalogDTO> catalog = new ArrayList<>();
         List<VehicleType> allTypes = vehicleTypeRepository.findAll();
@@ -91,20 +142,16 @@ public class VehicleService {
             long availableCount;
             if (hubId != null) {
                 availableCount = vehicleRepository.countByVehicleTypeIdAndStatusAndHubId(
-                        type.getId(), VehicleStatus.available.name(), hubId
-                );
+                        type.getId(), VehicleStatus.available.name(), hubId);
             } else {
                 availableCount = vehicleRepository.countByVehicleTypeIdAndStatus(
-                        type.getId(), VehicleStatus.available.name()
-                );
+                        type.getId(), VehicleStatus.available.name());
             }
 
-            // --- THE FIX ---
-            // If the car is NOT available, skip it. Don't add it to the JSON.
+            // If the car is NOT available, skip it
             if (availableCount == 0) {
                 continue;
             }
-            // ---------------
 
             VehicleCatalogDTO dto = new VehicleCatalogDTO();
 
@@ -119,9 +166,12 @@ public class VehicleService {
             for (VehicleRate rate : rates) {
                 if (rate.getPlans() != null) {
                     String plan = String.valueOf(rate.getPlans()).toLowerCase();
-                    if (plan.contains("daily")) dto.setDailyRate(rate.getAmount());
-                    else if (plan.contains("weekly")) dto.setWeeklyRate(rate.getAmount());
-                    else if (plan.contains("monthly")) dto.setMonthlyRate(rate.getAmount());
+                    if (plan.contains("daily"))
+                        dto.setDailyRate(rate.getAmount());
+                    else if (plan.contains("weekly"))
+                        dto.setWeeklyRate(rate.getAmount());
+                    else if (plan.contains("monthly"))
+                        dto.setMonthlyRate(rate.getAmount());
                 }
             }
 
