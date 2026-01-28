@@ -117,4 +117,14 @@ public class InvoiceResponseDTO {
 
     public BigDecimal getTotalAmount() { return totalAmount; }
     public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
+
+    // === NEW FIELDS ===
+    private String offerName;
+    private BigDecimal discountAmount;
+
+    // Getters and Setters
+    public String getOfferName() { return offerName; }
+    public void setOfferName(String offerName) { this.offerName = offerName; }
+    public BigDecimal getDiscountAmount() { return discountAmount; }
+    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 }

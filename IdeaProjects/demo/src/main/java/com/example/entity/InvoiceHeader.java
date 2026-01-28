@@ -145,4 +145,16 @@ public class InvoiceHeader {
         this.paymentStatus = paymentStatus;
     }
 
+    // === NEW DISCOUNT FIELDS ===
+    @Column(name = "offer_name")
+    private String offerName;
+
+    @Column(name = "discount_amount", precision = 10, scale = 2)
+    private BigDecimal discountAmount = BigDecimal.ZERO; // Default to 0
+
+    // Getters and Setters
+    public String getOfferName() { return offerName; }
+    public void setOfferName(String offerName) { this.offerName = offerName; }
+    public BigDecimal getDiscountAmount() { return discountAmount; }
+    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 }

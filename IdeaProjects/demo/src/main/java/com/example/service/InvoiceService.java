@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.math.RoundingMode;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -39,6 +40,10 @@ public class InvoiceService {
     private PdfInvoiceService pdfInvoiceService;
     @Autowired
     private EmailService emailService;
+
+    // 🔥 INJECT THE NEW REPOSITORY
+    @Autowired
+    private DiscountOfferRepository discountOfferRepository;
 
     // ========== PROCESS VEHICLE RETURN & GENERATE INVOICE ==========
     @Transactional
@@ -123,9 +128,48 @@ public class InvoiceService {
             addonTotalAmount = addon.getPricePerDay().multiply(BigDecimal.valueOf(totalDays));
         }
 
-        // Total amount
-        BigDecimal totalAmount = calc.totalRentalAmount.add(addonTotalAmount);
 
+        // 8. === DISCOUNT LOGIC (NEW) ===
+
+        // A. Calculate Subtotal first
+        BigDecimal subTotal = calc.totalRentalAmount.add(addonTotalAmount);
+
+        // --- 🛑 CONSOLE DEBUGGING START 🛑 ---
+        System.out.println("\n================ INVOICE CALCULATION DEBUG ================");
+        System.out.println("1. Rental Amount:  ₹" + calc.totalRentalAmount);
+        System.out.println("2. Addon Amount:   ₹" + addonTotalAmount);
+        System.out.println("3. Subtotal:       ₹" + subTotal);
+
+        BigDecimal discountAmount = BigDecimal.ZERO;
+        String offerName = null;
+
+        // B. Check for active offers TODAY
+        System.out.println("DEBUG: Checking offers for date: " + LocalDate.now());
+        List<DiscountOffer> offers = discountOfferRepository.findApplicableOffers(LocalDate.now());
+
+        if (!offers.isEmpty()) {
+            DiscountOffer bestOffer = offers.get(0); // Top 1 (ordered by highest %)
+            offerName = bestOffer.getOfferName();
+            BigDecimal percentage = bestOffer.getDiscountPercentage();
+
+            // C. Calculate Discount Amount: (Subtotal * Percentage) / 100
+            discountAmount = subTotal.multiply(percentage)
+                    .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+
+            System.out.println("DEBUG: Applied Offer: " + offerName + " (" + percentage + "%) - Amount: " + discountAmount);
+        } else {
+            System.out.println("DEBUG: No active offers found.");
+        }
+
+        // D. Calculate Final Total
+        BigDecimal totalAmount = subTotal.subtract(discountAmount);
+
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("💰 FINAL TOTAL AMOUNT: ₹" + totalAmount);
+        System.out.println("===========================================================\n");
+        // --- 🛑 CONSOLE DEBUGGING END 🛑 ---
+
+        // ===============================
         // Create Invoice
         InvoiceHeader invoice = new InvoiceHeader();
         invoice.setDate(LocalDate.now());
@@ -134,7 +178,14 @@ public class InvoiceService {
         invoice.setReturnDate(returnDate);
         invoice.setRentalAmount(calc.totalRentalAmount);
         invoice.setAddonTotalAmount(addonTotalAmount);
+
+        // NEW FIELDS
+        invoice.setOfferName(offerName);
+        invoice.setDiscountAmount(discountAmount);
+
         invoice.setTotalAmount(totalAmount);
+
+
 
         invoice = invoiceHeaderRepository.save(invoice);
 
@@ -178,6 +229,12 @@ public class InvoiceService {
             response.setAddonPricePerDay(addon.getPricePerDay());
         }
         response.setAddonTotalAmount(addonTotalAmount);
+
+        // NEW RESPONSE FIELDS
+        response.setOfferName(offerName);
+        response.setDiscountAmount(discountAmount);
+
+
         response.setTotalAmount(totalAmount);
 
         // Breakdown string for display
@@ -289,6 +346,11 @@ public class InvoiceService {
         response.setReturnDate(invoice.getReturnDate());
         response.setRentalAmount(invoice.getRentalAmount());
         response.setAddonTotalAmount(invoice.getAddonTotalAmount());
+
+        // Map Discount Details
+        response.setOfferName(invoice.getOfferName());
+        response.setDiscountAmount(invoice.getDiscountAmount());
+
         response.setTotalAmount(invoice.getTotalAmount());
 
         if (invoice.getBookingCustomer() != null) {

@@ -6,6 +6,7 @@ import com.lowagie.text.pdf.*;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -27,7 +28,8 @@ public class PdfInvoiceService {
             Font normalFont = new Font(Font.HELVETICA, 11, Font.NORMAL);
             Font boldFont = new Font(Font.HELVETICA, 11, Font.BOLD);
             Font totalFont = new Font(Font.HELVETICA, 14, Font.BOLD, new java.awt.Color(0, 128, 0));
-
+            //new font added
+            Font discountFont = new Font(Font.HELVETICA, 11, Font.BOLD, new java.awt.Color(0, 128, 0));
             // Header
             Paragraph title = new Paragraph("FLEMAN FLEET SERVICES", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
@@ -160,6 +162,28 @@ public class PdfInvoiceService {
                 addTableCell(totalTable, "₹" + invoice.getAddonTotalAmount(), normalFont);
             }
 
+            // 3. Subtotal (Calculated for display clarity)
+            BigDecimal subTotal = invoice.getRentalAmount();
+            if (invoice.getAddonTotalAmount() != null) {
+                subTotal = subTotal.add(invoice.getAddonTotalAmount());
+            }
+
+            // Draw a line before subtotal (optional visual separator)
+            addTableCell(totalTable, "Subtotal:", boldFont);
+            addTableCell(totalTable, "₹" + subTotal, normalFont);
+
+            // 🔥 4. DISCOUNT SECTION (Only if applied)
+            if (invoice.getDiscountAmount() != null && invoice.getDiscountAmount().compareTo(BigDecimal.ZERO) > 0) {
+
+                String offerText = "Discount (" + (invoice.getOfferName() != null ? invoice.getOfferName() : "Offer") + "):";
+
+                // Add Label in Green
+                addTableCell(totalTable, offerText, discountFont);
+
+                // Add Amount with Minus sign in Green
+                addTableCell(totalTable, "- ₹" + invoice.getDiscountAmount(), discountFont);
+            }
+
             document.add(totalTable);
 
             // Grand Total
@@ -191,6 +215,13 @@ public class PdfInvoiceService {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
         cell.setBorder(Rectangle.NO_BORDER);
         cell.setPadding(5);
+        // Right align the second column (Values) to make numbers line up nicely
+        // Check if the text starts with ₹ or - ₹
+        if (text.startsWith("₹") || text.startsWith("- ₹") || text.matches(".*\\d+.*")) {
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        } else {
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        }
         table.addCell(cell);
     }
 
