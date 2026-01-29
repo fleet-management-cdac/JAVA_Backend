@@ -129,45 +129,52 @@ public class InvoiceService {
         }
 
 
-        // 8. === DISCOUNT LOGIC (NEW) ===
+        // Get pickup date from handover
+        LocalDate pickupDate = handover.getCreatedAt()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
 
-        // A. Calculate Subtotal first
+        // Calculate subtotal
         BigDecimal subTotal = calc.totalRentalAmount.add(addonTotalAmount);
 
-        // --- 🛑 CONSOLE DEBUGGING START 🛑 ---
+        // --- DISCOUNT LOGIC: CHECK OFFERS ACTIVE AT PICKUP  ---
         System.out.println("\n================ INVOICE CALCULATION DEBUG ================");
         System.out.println("1. Rental Amount:  ₹" + calc.totalRentalAmount);
         System.out.println("2. Addon Amount:   ₹" + addonTotalAmount);
         System.out.println("3. Subtotal:       ₹" + subTotal);
+        System.out.println("4. Pickup Date:    " + pickupDate);
+        System.out.println("5. Return Date:    " + returnDate);
 
         BigDecimal discountAmount = BigDecimal.ZERO;
         String offerName = null;
 
-        // B. Check for active offers TODAY
-        System.out.println("DEBUG: Checking offers for date: " + LocalDate.now());
-        List<DiscountOffer> offers = discountOfferRepository.findApplicableOffers(LocalDate.now());
+        //  Check offers that were active at PICKUP time
+        List<DiscountOffer> offers = discountOfferRepository.findApplicableOffers(pickupDate);
 
         if (!offers.isEmpty()) {
-            DiscountOffer bestOffer = offers.get(0); // Top 1 (ordered by highest %)
+            DiscountOffer bestOffer = offers.get(0);
             offerName = bestOffer.getOfferName();
             BigDecimal percentage = bestOffer.getDiscountPercentage();
 
-            // C. Calculate Discount Amount: (Subtotal * Percentage) / 100
             discountAmount = subTotal.multiply(percentage)
                     .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
 
-            System.out.println("DEBUG: Applied Offer: " + offerName + " (" + percentage + "%) - Amount: " + discountAmount);
+            System.out.println("6. Applied Offer: " + offerName +
+                    " (" + percentage + "%)");
+            System.out.println("   Offer Period: " + bestOffer.getStartDate() +
+                    " to " + bestOffer.getEndDate());
+
+            System.out.println("7. Discount Amount: ₹" + discountAmount);
         } else {
-            System.out.println("DEBUG: No active offers found.");
+            System.out.println("6. No offers were active at pickup time (" + pickupDate + ")");
         }
 
-        // D. Calculate Final Total
         BigDecimal totalAmount = subTotal.subtract(discountAmount);
 
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("💰 FINAL TOTAL AMOUNT: ₹" + totalAmount);
-        System.out.println("===========================================================\n");
-        // --- 🛑 CONSOLE DEBUGGING END 🛑 ---
+
+        System.out.println(" FINAL TOTAL AMOUNT: ₹" + totalAmount);
+
+
 
         // ===============================
         // Create Invoice
@@ -249,9 +256,9 @@ public class InvoiceService {
                     booking.getId(),
                     pdfBytes);
 
-            System.out.println("✅ Invoice PDF sent to: " + customerDetail.getEmail());
+            System.out.println(" Invoice PDF sent to: " + customerDetail.getEmail());
         } catch (Exception e) {
-            System.err.println("⚠️ Failed to send invoice email: " + e.getMessage());
+            System.err.println(" Failed to send invoice email: " + e.getMessage());
         }
         return ApiResponseDTO.success("Vehicle returned & invoice generated", response);
 
@@ -347,6 +354,18 @@ public class InvoiceService {
         response.setRentalAmount(invoice.getRentalAmount());
         response.setAddonTotalAmount(invoice.getAddonTotalAmount());
 
+        // 🔥 FIX 1: Calculate totalDays
+        if (invoice.getHandoverDate() != null && invoice.getReturnDate() != null) {
+            long totalDays = ChronoUnit.DAYS.between(
+                    invoice.getHandoverDate(),
+                    invoice.getReturnDate()
+            );
+            if (totalDays < 1) {
+                totalDays = 1;
+            }
+            response.setTotalDays(totalDays);
+        }
+
         // Map Discount Details
         response.setOfferName(invoice.getOfferName());
         response.setDiscountAmount(invoice.getDiscountAmount());
@@ -370,6 +389,47 @@ public class InvoiceService {
                     Vehicle vehicle = handovers.get(0).getVehicle();
                     response.setVehicleName(vehicle.getCompany() + " " + vehicle.getModel());
                     response.setVehicleRegistration(vehicle.getRegistrationNo());
+
+                    // 🔥 FIX 2: Get rates from vehicle type for PDF generation
+                    if (vehicle.getVehicleType() != null) {
+                        Long vehicleTypeId = vehicle.getVehicleType().getId();
+                        List<VehicleRate> rates = vehicleRateRepository.findByVehicleTypeId(vehicleTypeId);
+
+                        // Map rates
+                        Map<String, BigDecimal> rateMap = new HashMap<>();
+                        for (VehicleRate rate : rates) {
+                            rateMap.put(rate.getPlans().toLowerCase(), rate.getAmount());
+                        }
+
+                        response.setDailyRate(rateMap.getOrDefault("daily", BigDecimal.ZERO));
+                        response.setWeeklyRate(rateMap.getOrDefault("weekly", BigDecimal.ZERO));
+                        response.setMonthlyRate(rateMap.getOrDefault("monthly", BigDecimal.ZERO));
+
+                        // 🔥 FIX 3: Recalculate pricing breakdown for display
+                        if (response.getTotalDays() != null) {
+                            RentalCalculation calc = calculateSmartRental(
+                                    response.getTotalDays(),
+                                    response.getDailyRate(),
+                                    response.getWeeklyRate(),
+                                    response.getMonthlyRate()
+                            );
+
+                            response.setMonthsCharged(calc.months);
+                            response.setWeeksCharged(calc.weeks);
+                            response.setDaysCharged(calc.days);
+                            response.setMonthlyAmount(calc.monthlyAmount);
+                            response.setWeeklyAmount(calc.weeklyAmount);
+                            response.setDailyAmount(calc.dailyAmount);
+                            response.setPricingBreakdown(calc.breakdownString);
+                        }
+                    }
+
+                    // 🔥 FIX 4: Get addon details from booking
+                    if (booking.getAddon() != null) {
+                        Addon addon = booking.getAddon();
+                        response.setAddonName(addon.getName());
+                        response.setAddonPricePerDay(addon.getPricePerDay());
+                    }
                 }
             }
         }

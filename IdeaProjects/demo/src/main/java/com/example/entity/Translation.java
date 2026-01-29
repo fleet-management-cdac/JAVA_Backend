@@ -17,8 +17,10 @@ public class Translation {
     @Column(name = "t_key", length = 150)
     private String tKey;
 
+    // CHANGED: Added columnDefinition = "TEXT" to match your SQL ALTER command
+    // @Lob is kept to hint that it is a large object, but columnDefinition ensures it matches the DB schema
     @Lob
-    @Column(name = "t_value", nullable = false)
+    @Column(name = "t_value", nullable = false, columnDefinition = "TEXT")
     private String tValue;
 
     public Long getId() {
@@ -52,5 +54,4 @@ public class Translation {
     public void setTValue(String tValue) {
         this.tValue = tValue;
     }
-
 }

@@ -25,4 +25,18 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     // 2. HUB-SPECIFIC count (for when a Hub IS selected)
     long countByVehicleTypeIdAndStatusAndHubId(Long typeId, String status, Long hubId);
+
+    // ========== NEW METHODS (Add these 2) ==========
+
+    /**
+     * Find ALL vehicles in a specific hub (regardless of status)
+     * Used for inventory management
+     */
+    List<Vehicle> findByHub_Id(Long hubId);
+
+    /**
+     * Find vehicles by hub and type (regardless of status)
+     * Used for type-specific inventory in a hub
+     */
+    List<Vehicle> findByHubIdAndVehicleTypeId(Long hubId, Long vehicleTypeId);
 }

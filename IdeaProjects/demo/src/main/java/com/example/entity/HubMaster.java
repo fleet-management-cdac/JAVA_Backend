@@ -13,10 +13,10 @@ public class HubMaster {
     @Column(name = "hub_id", nullable = false)
     private Long id;
 
-    @Column(name = "hub_name", length = 30)
+    @Column(name = "hub_name", length = 150)
     private String hubName;
 
-    @Column(name = "hub_address", length = 100)
+    @Column(name = "hub_address", length = 255)
     private String hubAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)

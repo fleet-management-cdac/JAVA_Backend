@@ -14,7 +14,20 @@ import java.util.List;
 @Repository
 public interface DiscountOfferRepository extends JpaRepository<DiscountOffer, Long> {
 
-        @Query("SELECT d FROM DiscountOffer d WHERE :date BETWEEN d.startDate AND d.endDate AND d.isActive = true ORDER BY d.discountPercentage DESC")
-        List<DiscountOffer> findApplicableOffers(@Param("date") LocalDate date);
+
+        /**
+         * Finds offers that were ACTIVE when the customer picked up the vehicle
+         *
+         * Business Rule: Customer must have known about the offer at booking time
+         *
+         * Logic: Offer applies if pickup date falls within offer period
+         */
+        @Query("SELECT d FROM DiscountOffer d " +
+                "WHERE d.isActive = true " +
+                "AND :pickupDate BETWEEN d.startDate AND d.endDate " +
+                "ORDER BY d.discountPercentage DESC")
+        List<DiscountOffer> findApplicableOffers(
+                @Param("pickupDate") LocalDate pickupDate
+        );
 
 }
