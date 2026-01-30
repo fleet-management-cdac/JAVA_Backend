@@ -1148,3 +1148,316 @@ Consider defining a bean of type 'com.example.service.VehicleInventoryService' i
 2026-01-29T13:27:33.847+05:30  INFO 31340 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-01-29T13:27:33.940+05:30  INFO 31340 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-01-29T13:27:33.958+05:30  INFO 31340 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-30T12:33:13.260+05:30  INFO 18292 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.17 with PID 18292 (C:\Users\Advait\Intelli-j\JAVA_Backend\IdeaProjects\demo\target\classes started by Advait in C:\Users\Advait\Intelli-j\JAVA_Backend)
+2026-01-30T12:33:13.264+05:30  INFO 18292 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-01-30T12:33:13.302+05:30  INFO 18292 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-30T12:33:13.302+05:30  INFO 18292 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-30T12:33:13.914+05:30  INFO 18292 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T12:33:13.977+05:30  INFO 18292 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56 ms. Found 17 JPA repository interfaces.
+2026-01-30T12:33:14.489+05:30  INFO 18292 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-30T12:33:14.499+05:30  INFO 18292 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T12:33:14.499+05:30  INFO 18292 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-30T12:33:14.535+05:30  INFO 18292 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1233 ms
+2026-01-30T12:33:14.809+05:30  INFO 18292 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-30T12:33:14.840+05:30  INFO 18292 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-30T12:33:15.144+05:30  INFO 18292 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T12:33:15.167+05:30  INFO 18292 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T12:33:15.361+05:30  INFO 18292 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@662ab7da
+2026-01-30T12:33:15.362+05:30  INFO 18292 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T12:33:15.404+05:30  WARN 18292 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-30T12:33:15.417+05:30  INFO 18292 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: fleeman/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T12:33:16.365+05:30  INFO 18292 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T12:33:16.445+05:30  INFO 18292 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:33:16.519+05:30  INFO 18292 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-30T12:33:16.975+05:30  WARN 18292 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:33:16.976+05:30  WARN 18292 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:33:17.383+05:30  WARN 18292 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-30T12:33:18.106+05:30  INFO 18292 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-30T12:33:18.175+05:30  INFO 18292 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T12:33:18.183+05:30  INFO 18292 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 5.262 seconds (process running for 5.64)
+2026-01-30T12:34:03.265+05:30  INFO 18292 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-30T12:34:03.440+05:30  INFO 18292 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-30T12:34:03.444+05:30  INFO 18292 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:34:03.447+05:30  INFO 18292 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-30T12:34:03.453+05:30  INFO 18292 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-30T12:34:10.859+05:30  INFO 29584 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.17 with PID 29584 (C:\Users\Advait\Intelli-j\JAVA_Backend\IdeaProjects\demo\target\classes started by Advait in C:\Users\Advait\Intelli-j\JAVA_Backend)
+2026-01-30T12:34:10.862+05:30  INFO 29584 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-01-30T12:34:10.899+05:30  INFO 29584 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-30T12:34:10.899+05:30  INFO 29584 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-30T12:34:11.560+05:30  INFO 29584 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T12:34:11.628+05:30  INFO 29584 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 17 JPA repository interfaces.
+2026-01-30T12:34:12.241+05:30  INFO 29584 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-30T12:34:12.249+05:30  INFO 29584 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T12:34:12.250+05:30  INFO 29584 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-30T12:34:12.299+05:30  INFO 29584 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1400 ms
+2026-01-30T12:34:12.455+05:30  INFO 29584 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-30T12:34:12.492+05:30  INFO 29584 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-30T12:34:12.787+05:30  INFO 29584 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T12:34:12.808+05:30  INFO 29584 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T12:34:13.007+05:30  INFO 29584 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65d975dc
+2026-01-30T12:34:13.009+05:30  INFO 29584 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T12:34:13.051+05:30  WARN 29584 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-30T12:34:13.064+05:30  INFO 29584 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: fleeman/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T12:34:14.067+05:30  INFO 29584 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T12:34:14.130+05:30  INFO 29584 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:34:14.203+05:30  INFO 29584 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-30T12:34:14.652+05:30  WARN 29584 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:34:14.652+05:30  WARN 29584 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:34:14.976+05:30  WARN 29584 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-30T12:34:15.536+05:30  INFO 29584 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-30T12:34:15.584+05:30  INFO 29584 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T12:34:15.591+05:30  INFO 29584 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 5.095 seconds (process running for 5.534)
+2026-01-30T12:34:20.864+05:30  INFO 29584 --- [demo] [http-nio-8080-exec-7] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-30T12:34:20.865+05:30  INFO 29584 --- [demo] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-30T12:34:20.868+05:30  INFO 29584 --- [demo] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-01-30T12:35:07.042+05:30  INFO 29584 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-30T12:35:07.224+05:30  INFO 29584 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-30T12:35:07.230+05:30  INFO 29584 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:35:07.233+05:30  INFO 29584 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-30T12:35:07.237+05:30  INFO 29584 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-30T12:45:14.283+05:30  INFO 23096 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.17 with PID 23096 (C:\Users\Advait\Intelli-j\JAVA_Backend\IdeaProjects\demo\target\classes started by Advait in C:\Users\Advait\Intelli-j\JAVA_Backend)
+2026-01-30T12:45:14.287+05:30  INFO 23096 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-01-30T12:45:14.329+05:30  INFO 23096 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-30T12:45:14.329+05:30  INFO 23096 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-30T12:45:14.918+05:30  INFO 23096 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T12:45:14.983+05:30  INFO 23096 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58 ms. Found 17 JPA repository interfaces.
+2026-01-30T12:45:15.601+05:30  INFO 23096 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-30T12:45:15.610+05:30  INFO 23096 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T12:45:15.611+05:30  INFO 23096 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-30T12:45:15.666+05:30  INFO 23096 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1336 ms
+2026-01-30T12:45:15.873+05:30  INFO 23096 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-30T12:45:15.912+05:30  INFO 23096 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-30T12:45:16.236+05:30  INFO 23096 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T12:45:16.259+05:30  INFO 23096 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T12:45:16.448+05:30  INFO 23096 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@398dbe04
+2026-01-30T12:45:16.449+05:30  INFO 23096 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T12:45:16.493+05:30  WARN 23096 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-30T12:45:16.507+05:30  INFO 23096 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: fleeman/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T12:45:17.492+05:30  INFO 23096 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T12:45:17.553+05:30  INFO 23096 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:45:17.623+05:30  INFO 23096 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-30T12:45:18.091+05:30  WARN 23096 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:45:18.092+05:30  WARN 23096 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:45:18.456+05:30  WARN 23096 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-30T12:45:19.084+05:30  INFO 23096 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-30T12:45:19.133+05:30  INFO 23096 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T12:45:19.140+05:30  INFO 23096 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 5.195 seconds (process running for 5.588)
+2026-01-30T12:45:26.575+05:30  INFO 23096 --- [demo] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-30T12:45:26.576+05:30  INFO 23096 --- [demo] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-30T12:45:26.580+05:30  INFO 23096 --- [demo] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-01-30T12:55:30.609+05:30  INFO 23096 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-30T12:55:30.791+05:30  INFO 23096 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-30T12:55:30.798+05:30  INFO 23096 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:55:30.803+05:30  INFO 23096 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-30T12:55:30.808+05:30  INFO 23096 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-30T12:55:41.764+05:30  INFO 3344 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.17 with PID 3344 (C:\Users\Advait\Intelli-j\JAVA_Backend\IdeaProjects\demo\target\classes started by Advait in C:\Users\Advait\Intelli-j\JAVA_Backend)
+2026-01-30T12:55:41.767+05:30  INFO 3344 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-01-30T12:55:41.805+05:30  INFO 3344 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-30T12:55:41.806+05:30  INFO 3344 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-30T12:55:42.379+05:30  INFO 3344 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T12:55:42.442+05:30  INFO 3344 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 17 JPA repository interfaces.
+2026-01-30T12:55:43.065+05:30  INFO 3344 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-30T12:55:43.074+05:30  INFO 3344 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T12:55:43.074+05:30  INFO 3344 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-30T12:55:43.112+05:30  INFO 3344 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1306 ms
+2026-01-30T12:55:43.330+05:30  INFO 3344 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-30T12:55:43.362+05:30  INFO 3344 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-30T12:55:43.656+05:30  INFO 3344 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T12:55:43.677+05:30  INFO 3344 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T12:55:43.867+05:30  INFO 3344 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@28da7707
+2026-01-30T12:55:43.869+05:30  INFO 3344 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T12:55:43.910+05:30  WARN 3344 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-30T12:55:43.922+05:30  INFO 3344 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: fleeman/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T12:55:44.821+05:30  INFO 3344 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T12:55:44.889+05:30  INFO 3344 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T12:55:44.993+05:30  INFO 3344 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-30T12:55:45.477+05:30  WARN 3344 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:55:45.478+05:30  WARN 3344 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T12:55:45.975+05:30  WARN 3344 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-30T12:55:46.676+05:30  INFO 3344 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-30T12:55:46.726+05:30  INFO 3344 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T12:55:46.733+05:30  INFO 3344 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 5.336 seconds (process running for 5.746)
+2026-01-30T12:55:58.795+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-30T12:55:58.797+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-30T12:55:58.803+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2026-01-30T12:55:58.987+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] CityMasterService.getCitiesByState called
+2026-01-30T12:55:58.987+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAirportsByState called
+2026-01-30T12:56:00.268+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-2] com.example.aspect.LoggingAspect         : [AOP-DEBUG] HubService.getHubsByCity called
+2026-01-30T12:56:07.868+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAirportsByState called
+2026-01-30T12:56:07.867+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] CityMasterService.getCitiesByState called
+2026-01-30T12:56:09.459+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] HubService.getHubsByCity called
+2026-01-30T12:56:18.032+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
+2026-01-30T12:56:18.196+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-10] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
+2026-01-30T12:56:18.202+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
+2026-01-30T12:56:18.271+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
+2026-01-30T12:56:20.163+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T12:56:20.168+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AddonService.getAllAddons called
+2026-01-30T12:56:20.180+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T12:56:20.190+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-10] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T12:56:20.206+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AddonService.getAllAddons called
+2026-01-30T12:56:20.224+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T12:56:20.227+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T12:56:20.232+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-2] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T12:56:20.231+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T12:56:20.257+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T12:56:20.274+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T12:56:23.717+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] BookingService.createBooking called
+2026-01-30T12:56:23.845+05:30  INFO 3344 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] EmailService.sendBookingConfirmationEmail called
+2026-01-30T13:00:52.129+05:30  INFO 3344 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-30T13:00:52.308+05:30  INFO 3344 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-30T13:00:52.313+05:30  INFO 3344 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T13:00:52.316+05:30  INFO 3344 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-30T13:00:52.320+05:30  INFO 3344 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-30T13:01:00.332+05:30  INFO 30700 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.17 with PID 30700 (C:\Users\Advait\Intelli-j\JAVA_Backend\IdeaProjects\demo\target\classes started by Advait in C:\Users\Advait\Intelli-j\JAVA_Backend)
+2026-01-30T13:01:00.336+05:30  INFO 30700 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-01-30T13:01:00.383+05:30  INFO 30700 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-30T13:01:00.384+05:30  INFO 30700 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-30T13:01:01.125+05:30  INFO 30700 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T13:01:01.206+05:30  INFO 30700 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 17 JPA repository interfaces.
+2026-01-30T13:01:02.073+05:30  INFO 30700 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-30T13:01:02.081+05:30  INFO 30700 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T13:01:02.081+05:30  INFO 30700 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-30T13:01:02.119+05:30  INFO 30700 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1735 ms
+2026-01-30T13:01:02.344+05:30  INFO 30700 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-30T13:01:02.495+05:30  INFO 30700 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-30T13:01:03.381+05:30  INFO 30700 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T13:01:03.447+05:30  INFO 30700 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T13:01:04.052+05:30  INFO 30700 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e1b5f44
+2026-01-30T13:01:04.056+05:30  INFO 30700 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T13:01:04.217+05:30  WARN 30700 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-30T13:01:04.312+05:30  INFO 30700 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.35
+	Default catalog/schema: fleeman/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T13:01:07.784+05:30  INFO 30700 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T13:01:07.993+05:30  INFO 30700 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T13:01:08.388+05:30  INFO 30700 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-30T13:01:09.941+05:30  WARN 30700 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T13:01:09.942+05:30  WARN 30700 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
+2026-01-30T13:01:11.555+05:30  WARN 30700 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-30T13:01:13.738+05:30  INFO 30700 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-01-30T13:01:13.881+05:30  INFO 30700 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T13:01:13.899+05:30  INFO 30700 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 14.074 seconds (process running for 14.513)
+2026-01-30T13:01:19.867+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-30T13:01:19.869+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-30T13:01:19.875+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2026-01-30T13:01:20.035+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:20.036+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:20.565+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:20.573+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:23.078+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:23.082+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-10] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:23.086+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:23.137+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:23.151+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:23.153+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:23.182+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-2] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:23.260+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:27.189+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] CustomOAuth2UserService.loadUser called
+2026-01-30T13:01:27.189+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : =================================================
+2026-01-30T13:01:27.189+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : 🚀 STARTED: OAuth2 User Load Request
+2026-01-30T13:01:27.437+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : ✅ SUCCESS: Google User Loaded. Attributes: {sub=111416789220180428551, name=Advait Patil, given_name=Advait, family_name=Patil, picture=https://lh3.googleusercontent.com/a/ACg8ocK1d8q1wG26VVqsJ6QFWTviORgrVIbJMZg_umUBt4Y4p2cfF1E=s96-c, email=advaitjpatil@gmail.com, email_verified=true}
+2026-01-30T13:01:27.440+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : 🔍 Processing user with email: advaitjpatil@gmail.com
+2026-01-30T13:01:27.492+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : ✨ USER FOUND in Database! ID: 1
+2026-01-30T13:01:27.492+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      :    Current Provider: GOOGLE
+2026-01-30T13:01:27.492+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.service.CustomOAuth2UserService      : =================================================
+2026-01-30T13:01:27.532+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.security.OAuth2LoginSuccessHandler   : =================================================
+2026-01-30T13:01:27.532+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.security.OAuth2LoginSuccessHandler   : 🎉 LOGIN SUCCESS: OAuth2 Authentication Successful!
+2026-01-30T13:01:27.533+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.security.OAuth2LoginSuccessHandler   : 📧 User Email from Context: advaitjpatil@gmail.com
+2026-01-30T13:01:27.784+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.security.OAuth2LoginSuccessHandler   : 🔑 JWT Generated Successfully!
+2026-01-30T13:01:27.785+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] c.e.security.OAuth2LoginSuccessHandler   : 🚀 Redirecting User to: http://localhost:3000/login/success?token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOjEsImVtYWlsIjoiYWR2YWl0anBhdGlsQGdtYWlsLmNvbSIsInN1YiI6ImFkdmFpdGpwYXRpbEBnbWFpbC5jb20iLCJpYXQiOjE3Njk3NTgyODcsImV4cCI6MTc2OTg0NDY4N30.rC05XTEQ-j_TBdkHD77JxtKPvvFSrXUyMV-yQm3Je1tTTG2N_Ur6wjQZn58QksgXVUbFmdLS-lHqKP8WMDkVqA
+2026-01-30T13:01:28.137+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:28.138+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:28.139+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-10] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T13:01:28.160+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:28.164+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:28.463+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:28.467+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-2] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:28.497+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:28.501+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:01:33.260+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAirportsByState called
+2026-01-30T13:01:33.262+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] CityMasterService.getCitiesByState called
+2026-01-30T13:01:36.345+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] HubService.getHubsByCity called
+2026-01-30T13:01:44.103+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] CityMasterService.getCitiesByState called
+2026-01-30T13:01:44.103+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-10] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAirportsByState called
+2026-01-30T13:01:45.996+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] HubService.getHubsByCity called
+2026-01-30T13:01:51.779+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
+2026-01-30T13:01:51.869+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
+2026-01-30T13:01:51.874+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
+2026-01-30T13:01:51.911+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
+2026-01-30T13:01:53.522+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T13:01:53.531+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:53.531+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AddonService.getAllAddons called
+2026-01-30T13:01:53.530+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:53.529+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:01:53.548+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T13:01:53.549+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-8] com.example.aspect.LoggingAspect         : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-01-30T13:01:53.551+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-4] com.example.aspect.LoggingAspect         : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-01-30T13:01:53.562+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AddonService.getAllAddons called
+2026-01-30T13:01:53.572+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-9] com.example.aspect.LoggingAspect         : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-01-30T13:01:53.574+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-2] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:02:00.115+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [BOOKING] Booking creation started
+2026-01-30T13:02:00.116+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] BookingService.createBooking called
+2026-01-30T13:02:00.224+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [AOP-DEBUG] EmailService.sendBookingConfirmationEmail called
+2026-01-30T13:02:04.100+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-5] com.example.aspect.LoggingAspect         : [BOOKING] Booking confirmed successfully
+2026-01-30T13:02:21.827+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-6] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:02:21.828+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-1] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:02:21.856+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-3] com.example.aspect.LoggingAspect         : [AOP-DEBUG] StateService.getAllStateNames called
+2026-01-30T13:02:21.859+05:30  INFO 30700 --- [demo] [http-nio-8080-exec-7] com.example.aspect.LoggingAspect         : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-01-30T13:08:46.031+05:30  INFO 30700 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-30T13:08:46.243+05:30  INFO 30700 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-30T13:08:46.266+05:30  INFO 30700 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T13:08:46.271+05:30  INFO 30700 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-30T13:08:46.275+05:30  INFO 30700 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
