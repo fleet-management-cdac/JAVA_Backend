@@ -191,13 +191,14 @@ public class InvoiceService {
         invoice.setDiscountAmount(discountAmount);
 
         invoice.setTotalAmount(totalAmount);
+        invoice.setPaymentStatus("pending");
 
 
 
         invoice = invoiceHeaderRepository.save(invoice);
 
         // Update booking status
-        booking.setStatus("completed");
+        booking.setStatus("returned");
         bookingRepository.save(booking);
 
         // Update vehicle status
@@ -249,19 +250,17 @@ public class InvoiceService {
 
         try {
             byte[] pdfBytes = pdfInvoiceService.generateInvoicePdf(response);
-
             emailService.sendInvoiceWithAttachment(
                     customerDetail.getEmail(),
                     response.getCustomerName(),
                     booking.getId(),
                     pdfBytes);
-
-            System.out.println(" Invoice PDF sent to: " + customerDetail.getEmail());
+            System.out.println("✅ Invoice PDF sent to: " + customerDetail.getEmail());
         } catch (Exception e) {
-            System.err.println(" Failed to send invoice email: " + e.getMessage());
+            System.err.println("⚠️ Failed to send invoice email: " + e.getMessage());
         }
-        return ApiResponseDTO.success("Vehicle returned & invoice generated", response);
 
+        return ApiResponseDTO.success("Vehicle returned & invoice generated. Please complete payment.", response);
     }
 
     // ========== SMART RENTAL CALCULATION ==========
