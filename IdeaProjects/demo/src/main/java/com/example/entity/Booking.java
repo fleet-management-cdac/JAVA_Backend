@@ -52,8 +52,7 @@ public class Booking {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @OneToMany(mappedBy = "booking")
-    private Set<BookingAddon> bookingAddons = new LinkedHashSet<>();
+
 
     @OneToOne(mappedBy = "booking")
     private BookingCustomerDetail bookingCustomerDetail;
@@ -141,10 +140,7 @@ public class Booking {
         this.createdAt = createdAt;
     }
 
-    public Set<BookingAddon> getBookingAddons() {
-        return bookingAddons;
-    }
-    // Add after the addon field in Booking.java
+
 
     public Addon getAddon() {
         return addon;
@@ -154,9 +150,6 @@ public class Booking {
         this.addon = addon;
     }
 
-    public void setBookingAddons(Set<BookingAddon> bookingAddons) {
-        this.bookingAddons = bookingAddons;
-    }
 
     public BookingCustomerDetail getBookingCustomerDetail() {
         return bookingCustomerDetail;
