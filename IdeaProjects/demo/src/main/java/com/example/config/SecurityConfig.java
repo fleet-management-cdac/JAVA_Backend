@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.security.JwtAuthenticationFilter;
 import com.example.service.CustomOAuth2UserService;
 import com.example.security.OAuth2LoginSuccessHandler;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,44 +34,74 @@ public class SecurityConfig {
     @Autowired
     private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     // ========== 1. ACTUATOR SECURITY (Public & Stateless) ==========
     @Bean
-    @Order(0) // HIGHEST PRIORITY - Checks this first!
+    @Order(0)
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/actuator/**") // Only matches actuator URLs
+                .securityMatcher("/actuator/**")
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()); // Force allow everything here
+                        .anyRequest().permitAll());
 
         return http.build();
     }
 
-    // ========== API SECURITY (No OAuth2, completely stateless) ==========
+    // ========== 2. API SECURITY (JWT-based with Role Checks) ==========
     @Bean
     @Order(1)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/api/**", "/actuator/**")  // Only apply to /api/** paths
+                .securityMatcher("/api/**")
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll())
+                        // Public endpoints (no authentication needed)
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/locations/**").permitAll()
+                        .requestMatchers("/api/catalog/**").permitAll()
+                        .requestMatchers("/api/vehicles/types-with-rates").permitAll()
+                        .requestMatchers("/api/addons/**").permitAll()
+                        .requestMatchers("/api/offers/**").permitAll()
+                        .requestMatchers("/api/i18n/**").permitAll()
+
+                        // Staff-only endpoints
+                        .requestMatchers("/api/inventory/**").hasRole("STAFF")
+                        .requestMatchers("/api/handovers/**").hasRole("STAFF")
+                        .requestMatchers("/api/vehicles/available-for-handover").hasRole("STAFF")
+
+                        // Authenticated endpoints (both customer and staff)
+                        .requestMatchers("/api/bookings/**").permitAll()
+                        .requestMatchers("/api/invoices/**").authenticated()
+                        .requestMatchers("/api/payments/**").authenticated()
+                        .requestMatchers("/api/users/**").authenticated()
+
+                        // Catch-all: require authentication
+                        .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType("application/json");
-                            response.getWriter().write("{\"success\":false,\"message\":\"Unauthorized\"}");
+                            response.getWriter().write("{\"success\":false,\"message\":\"Unauthorized - Please login\"}");
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"success\":false,\"message\":\"Access Denied - Staff access required\"}");
                         }));
 
         return http.build();
     }
 
-    // ========== WEB SECURITY (OAuth2 for browser login) ==========
+    // ========== 3. WEB SECURITY (OAuth2 for browser login) ==========
     @Bean
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -92,13 +124,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // Add both localhost AND Vercel URL (without trailing slash)
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000",
                 "https://frontendfleeman01.vercel.app"
         ));
-
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization"));

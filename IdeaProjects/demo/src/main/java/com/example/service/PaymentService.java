@@ -1,7 +1,9 @@
 package com.example.service;
 
 import com.example.dto.ApiResponseDTO;
+import com.example.entity.Booking;
 import com.example.entity.InvoiceHeader;
+import com.example.repository.BookingRepository;
 import com.example.repository.InvoiceHeaderRepository;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -32,6 +35,10 @@ public class PaymentService {
 
     @Autowired
     private InvoiceHeaderRepository invoiceHeaderRepository;
+
+    // 🔧 NEW: Inject BookingRepository
+    @Autowired
+    private BookingRepository bookingRepository;
 
     // ========== CREATE RAZORPAY ORDER ==========
     public ApiResponseDTO<Map<String, Object>> createOrder(Long invoiceId) {
@@ -56,9 +63,7 @@ public class PaymentService {
 
             // Create order options
             JSONObject orderRequest = new JSONObject();
-            orderRequest.put("amount", invoice.getTotalAmount().multiply(new java.math.BigDecimal(100)).intValue()); // Amount
-            // in
-            // paise
+            orderRequest.put("amount", invoice.getTotalAmount().multiply(new java.math.BigDecimal(100)).intValue());
             orderRequest.put("currency", "INR");
             orderRequest.put("receipt", "invoice_" + invoiceId);
 
@@ -89,6 +94,7 @@ public class PaymentService {
     }
 
     // ========== VERIFY PAYMENT ==========
+    @Transactional  // 🔧 NEW: Add transaction
     public ApiResponseDTO<Map<String, Object>> verifyPayment(
             String razorpayOrderId,
             String razorpayPaymentId,
@@ -120,14 +126,34 @@ public class PaymentService {
         invoice.setPaymentStatus("success");
         invoiceHeaderRepository.save(invoice);
 
+        // 🔧 NEW: Complete the booking now that payment is successful
+        Long bookingId = null;
+        if (invoice.getBookingCustomer() != null &&
+                invoice.getBookingCustomer().getBooking() != null) {
+
+            Booking booking = invoice.getBookingCustomer().getBooking();
+            bookingId = booking.getId();
+
+            // Only update if status is 'returned' (not already completed)
+            if ("returned".equals(booking.getStatus())) {
+                booking.setStatus("completed");
+                bookingRepository.save(booking);
+                logger.info("✅ Booking #{} marked as completed after successful payment", bookingId);
+            } else {
+                logger.warn("⚠️ Booking #{} status is '{}', not updating", bookingId, booking.getStatus());
+            }
+        }
+
         logger.info("✅ Payment verified! Transaction ID: {}", razorpayPaymentId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("transactionId", razorpayPaymentId);
         response.put("status", "success");
         response.put("invoiceId", invoiceId);
+        response.put("bookingId", bookingId);
+        response.put("bookingCompleted", true);
 
-        return ApiResponseDTO.success("Payment successful", response);
+        return ApiResponseDTO.success("Payment successful - Booking completed", response);
     }
 
     // ========== GENERATE HMAC SIGNATURE ==========
