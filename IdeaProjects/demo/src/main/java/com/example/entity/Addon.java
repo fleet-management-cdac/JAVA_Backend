@@ -24,8 +24,7 @@ public class Addon {
     @Column(name = "price_per_day", precision = 10, scale = 2)
     private BigDecimal pricePerDay;
 
-    @OneToMany(mappedBy = "addon")
-    private Set<BookingAddon> bookingAddons = new LinkedHashSet<>();
+
 
     public Long getId() {
         return id;
@@ -59,12 +58,5 @@ public class Addon {
         this.pricePerDay = pricePerDay;
     }
 
-    public Set<BookingAddon> getBookingAddons() {
-        return bookingAddons;
-    }
-
-    public void setBookingAddons(Set<BookingAddon> bookingAddons) {
-        this.bookingAddons = bookingAddons;
-    }
 
 }
