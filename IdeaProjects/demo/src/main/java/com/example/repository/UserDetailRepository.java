@@ -11,20 +11,26 @@ import java.util.Optional;
 @Repository
 public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
 
-    @Query("SELECT ud FROM UserDetail ud WHERE ud.user.id = :userId")
-    Optional<UserDetail> findByUserId(@Param("userId") Long userId);
+        @Query("SELECT ud FROM UserDetail ud WHERE ud.user.id = :userId")
+        Optional<UserDetail> findByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT ud FROM UserDetail ud " +
-            "LEFT JOIN FETCH ud.user " +
-            "LEFT JOIN FETCH ud.city c " +
-            "LEFT JOIN FETCH c.state " +
-            "WHERE ud.user.id = :userId")
-    Optional<UserDetail> findByUserIdWithDetails(@Param("userId") Long userId);
+        @Query("SELECT ud FROM UserDetail ud " +
+                        "LEFT JOIN FETCH ud.user " +
+                        "LEFT JOIN FETCH ud.city c " +
+                        "LEFT JOIN FETCH c.state " +
+                        "WHERE ud.user.id = :userId")
+        Optional<UserDetail> findByUserIdWithDetails(@Param("userId") Long userId);
 
-    @Query("SELECT ud FROM UserDetail ud " +
-            "LEFT JOIN FETCH ud.user " +
-            "LEFT JOIN FETCH ud.city c " +
-            "LEFT JOIN FETCH c.state " +
-            "WHERE ud.id = :userDetailId")
-    Optional<UserDetail> findByIdWithDetails(@Param("userDetailId") Long userDetailId);
+        @Query("SELECT ud FROM UserDetail ud " +
+                        "LEFT JOIN FETCH ud.user " +
+                        "LEFT JOIN FETCH ud.city c " +
+                        "LEFT JOIN FETCH c.state " +
+                        "WHERE ud.id = :userDetailId")
+        Optional<UserDetail> findByIdWithDetails(@Param("userDetailId") Long userDetailId);
+
+        @Query("SELECT ud FROM UserDetail ud " +
+                        "LEFT JOIN FETCH ud.user " +
+                        "LEFT JOIN FETCH ud.assignedHub " +
+                        "WHERE ud.user.id = :userId")
+        Optional<UserDetail> findByUserIdWithHub(@Param("userId") Long userId);
 }

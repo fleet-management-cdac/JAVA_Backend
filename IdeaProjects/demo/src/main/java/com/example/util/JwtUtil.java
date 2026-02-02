@@ -24,11 +24,14 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(Long userId, String email, String role) {
+    public String generateToken(Long userId, String email, String role, Long hubId) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("email", email);
         claims.put("role", role);
+        if (hubId != null) {
+            claims.put("hubId", hubId);
+        }
 
         return Jwts.builder()
                 .claims(claims)
@@ -59,6 +62,10 @@ public class JwtUtil {
         return extractAllClaims(token).get("role", String.class);
     }
 
+    public Long extractHubId(String token) {
+        return extractAllClaims(token).get("hubId", Long.class);
+    }
+
     public boolean isTokenValid(String token) {
         try {
             extractAllClaims(token);
@@ -72,7 +79,7 @@ public class JwtUtil {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
 
-    // ---  METHODS FOR FORGOT PASSWORD ---
+    // --- METHODS FOR FORGOT PASSWORD ---
     public String generateResetToken(String email) {
         // 15 Minutes Expiration for security
         long resetExpiration = 1000 * 60 * 15;

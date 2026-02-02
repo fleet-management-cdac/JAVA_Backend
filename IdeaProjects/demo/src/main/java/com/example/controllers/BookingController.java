@@ -63,6 +63,15 @@ public class BookingController {
         return ResponseEntity.ok(response);
     }
 
+    // READ - Get by hub ID (Staff Dashboard)
+    @GetMapping("/hub/{hubId}")
+    public ResponseEntity<ApiResponseDTO<List<BookingResponseDTO>>> getBookingsByHub(
+            @PathVariable Long hubId) {
+
+        ApiResponseDTO<List<BookingResponseDTO>> response = bookingService.getBookingsByHubId(hubId);
+        return ResponseEntity.ok(response);
+    }
+
     // UPDATE - Status only
     @PatchMapping("/{bookingId}/status")
     public ResponseEntity<ApiResponseDTO<BookingResponseDTO>> updateBookingStatus(

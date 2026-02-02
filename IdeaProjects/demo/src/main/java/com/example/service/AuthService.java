@@ -55,14 +55,20 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             return ApiResponseDTO.error("Invalid email or password");
         }
-        // Get user details for first name
+        // Get user details for first name and hub
         String firstName = "";
-        Optional<UserDetail> detailOpt = userDetailRepository.findByUserId(user.getId());
+        Long hubId = null;
+        Optional<UserDetail> detailOpt = userDetailRepository.findByUserIdWithHub(user.getId());
         if (detailOpt.isPresent()) {
-            firstName = detailOpt.get().getFirstName();
+            UserDetail detail = detailOpt.get();
+            firstName = detail.getFirstName();
+            // Get hub ID for staff members
+            if (detail.getAssignedHub() != null) {
+                hubId = detail.getAssignedHub().getId();
+            }
         }
-        // Generate JWT token
-        String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+        // Generate JWT token with hubId
+        String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole(), hubId);
         // Build response
         LoginResponseDTO response = new LoginResponseDTO();
         response.setToken(token);
@@ -72,7 +78,6 @@ public class AuthService {
         response.setRole(user.getRole());
         return ApiResponseDTO.success("Login successful", response);
     }
-
 
     @Transactional
     public ApiResponseDTO<UserResponseDTO> registerUser(RegisterRequestDTO request) {
@@ -106,7 +111,7 @@ public class AuthService {
         userDetail.setUser(userAuth);
         userDetail.setFirstName(request.getFirstName());
         userDetail.setLastName(request.getLastName());
-        userDetail.setAddress(request.getAddress());  // Updated field name
+        userDetail.setAddress(request.getAddress()); // Updated field name
         userDetail.setZipcode(request.getZipcode());
         userDetail.setPhoneHome(request.getPhoneHome());
         userDetail.setPhoneCell(request.getPhoneCell());
@@ -185,11 +190,13 @@ public class AuthService {
 
         // 2. Extract Email
         String email = jwtUtil.extractEmail(token);
-        if (email == null) return ApiResponseDTO.error("Invalid token data.");
+        if (email == null)
+            return ApiResponseDTO.error("Invalid token data.");
 
         // 3. Find User
         Optional<UserAuth> userOpt = userAuthRepository.findByEmail(email);
-        if (userOpt.isEmpty()) return ApiResponseDTO.error("User not found.");
+        if (userOpt.isEmpty())
+            return ApiResponseDTO.error("User not found.");
 
         // 4. Update Password
         UserAuth user = userOpt.get();

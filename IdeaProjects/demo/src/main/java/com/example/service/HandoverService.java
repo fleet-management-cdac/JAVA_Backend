@@ -127,6 +127,79 @@ public class HandoverService {
         return ApiResponseDTO.success("Handovers fetched", responses);
     }
 
+    // ========== PROCESS RETURN HANDOVER (Updates Vehicle Hub) ==========
+    @Transactional
+    public ApiResponseDTO<HandoverResponseDTO> processReturnHandover(HandoverRequestDTO request) {
+
+        if (request.getBookingId() == null) {
+            return ApiResponseDTO.error("Booking ID is required");
+        }
+        if (request.getProcessedBy() == null) {
+            return ApiResponseDTO.error("Processed by (Staff ID) is required");
+        }
+        if (request.getFuelStatus() == null || request.getFuelStatus().isBlank()) {
+            return ApiResponseDTO.error("Fuel status is required");
+        }
+
+        // Fetch booking with details
+        Optional<Booking> bookingOpt = bookingRepository.findByIdWithDetails(request.getBookingId());
+        if (bookingOpt.isEmpty()) {
+            return ApiResponseDTO.error("Booking not found");
+        }
+
+        Booking booking = bookingOpt.get();
+
+        // Check booking is active (already picked up)
+        if (!"active".equals(booking.getStatus())) {
+            return ApiResponseDTO.error("Booking is not in 'active' status. Cannot process return.");
+        }
+
+        // Fetch staff
+        Optional<UserAuth> staffOpt = userAuthRepository.findById(request.getProcessedBy());
+        if (staffOpt.isEmpty()) {
+            return ApiResponseDTO.error("Staff user not found");
+        }
+
+        // Get vehicle from existing pickup handover
+        List<Handover> existingHandovers = handoverRepository.findByBookingId(booking.getId());
+        if (existingHandovers.isEmpty()) {
+            return ApiResponseDTO.error("No pickup handover found for this booking");
+        }
+
+        Vehicle vehicle = existingHandovers.get(0).getVehicle();
+        if (vehicle == null) {
+            return ApiResponseDTO.error("No vehicle associated with this booking's handover");
+        }
+
+        // ====== CRITICAL: DYNAMIC INVENTORY UPDATE ======
+        // Update vehicle's hub to the RETURN HUB (not original home base)
+        // This is the key to inter-city transfers working correctly
+        HubMaster returnHub = booking.getReturnHub();
+        vehicle.setHub(returnHub);
+        vehicle.setStatus("available");
+        vehicleRepository.save(vehicle);
+
+        // Update booking status to completed
+        booking.setStatus("completed");
+        bookingRepository.save(booking);
+
+        // Create return handover record
+        Handover returnHandover = new Handover();
+        returnHandover.setBooking(booking);
+        returnHandover.setVehicle(vehicle);
+        returnHandover.setProcessedBy(staffOpt.get());
+        returnHandover.setFuelStatus(request.getFuelStatus());
+        returnHandover.setStatusDescription("Return processed - Vehicle transferred to " + returnHub.getHubName());
+        returnHandover.setCreatedAt(Instant.now());
+
+        returnHandover = handoverRepository.save(returnHandover);
+
+        return ApiResponseDTO.success(
+                "Return processed successfully. Vehicle '" + vehicle.getRegistrationNo() +
+                        "' is now available at " + returnHub.getHubName(),
+                buildResponse(returnHandover));
+    }
+
     // ========== Helper ==========
     private HandoverResponseDTO buildResponse(Handover handover) {
         HandoverResponseDTO response = new HandoverResponseDTO();

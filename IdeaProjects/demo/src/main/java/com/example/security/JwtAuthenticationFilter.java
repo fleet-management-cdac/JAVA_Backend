@@ -23,8 +23,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
@@ -37,19 +37,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     String email = jwtUtil.extractEmail(token);
                     Long userId = jwtUtil.extractUserId(token);
                     String role = jwtUtil.extractRole(token);
+                    Long hubId = jwtUtil.extractHubId(token);
 
                     // Create authentication with ROLE_ prefix (Spring Security requirement)
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(
-                                    userId, // Principal
-                                    null,   // Credentials
-                                    Collections.singletonList(
-                                            new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())
-                                    )
-                            );
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userId, // Principal
+                            null, // Credentials
+                            Collections.singletonList(
+                                    new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())));
 
                     // Store additional details for easy access
-                    authentication.setDetails(new JwtUserDetails(userId, email, role));
+                    authentication.setDetails(new JwtUserDetails(userId, email, role, hubId));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
@@ -66,15 +64,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         private final Long userId;
         private final String email;
         private final String role;
+        private final Long hubId;
 
-        public JwtUserDetails(Long userId, String email, String role) {
+        public JwtUserDetails(Long userId, String email, String role, Long hubId) {
             this.userId = userId;
             this.email = email;
             this.role = role;
+            this.hubId = hubId;
         }
 
-        public Long getUserId() { return userId; }
-        public String getEmail() { return email; }
-        public String getRole() { return role; }
+        public Long getUserId() {
+            return userId;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public Long getHubId() {
+            return hubId;
+        }
     }
 }
