@@ -128,7 +128,6 @@ public class InvoiceService {
             addonTotalAmount = addon.getPricePerDay().multiply(BigDecimal.valueOf(totalDays));
         }
 
-
         // Get pickup date from handover
         LocalDate pickupDate = handover.getCreatedAt()
                 .atZone(ZoneId.systemDefault())
@@ -137,7 +136,7 @@ public class InvoiceService {
         // Calculate subtotal
         BigDecimal subTotal = calc.totalRentalAmount.add(addonTotalAmount);
 
-        // --- DISCOUNT LOGIC: CHECK OFFERS ACTIVE AT PICKUP  ---
+        // --- DISCOUNT LOGIC: CHECK OFFERS ACTIVE AT PICKUP ---
         System.out.println("\n================ INVOICE CALCULATION DEBUG ================");
         System.out.println("1. Rental Amount:  ₹" + calc.totalRentalAmount);
         System.out.println("2. Addon Amount:   ₹" + addonTotalAmount);
@@ -148,7 +147,7 @@ public class InvoiceService {
         BigDecimal discountAmount = BigDecimal.ZERO;
         String offerName = null;
 
-        //  Check offers that were active at PICKUP time
+        // Check offers that were active at PICKUP time
         List<DiscountOffer> offers = discountOfferRepository.findApplicableOffers(pickupDate);
 
         if (!offers.isEmpty()) {
@@ -171,10 +170,7 @@ public class InvoiceService {
 
         BigDecimal totalAmount = subTotal.subtract(discountAmount);
 
-
         System.out.println(" FINAL TOTAL AMOUNT: ₹" + totalAmount);
-
-
 
         // ===============================
         // Create Invoice
@@ -193,15 +189,19 @@ public class InvoiceService {
         invoice.setTotalAmount(totalAmount);
         invoice.setPaymentStatus("pending");
 
-
-
         invoice = invoiceHeaderRepository.save(invoice);
 
         // Update booking status
         booking.setStatus("returned");
         bookingRepository.save(booking);
 
-        // Update vehicle status
+        // ====== CRITICAL FIX: Update vehicle hub to RETURN LOCATION ======
+        // This ensures inter-city transfers work correctly
+        // Vehicle picked up in Mumbai, returned in Nagpur -> Vehicle is now in Nagpur
+        HubMaster returnHub = booking.getReturnHub();
+        if (returnHub != null) {
+            vehicle.setHub(returnHub);
+        }
         vehicle.setStatus("available");
         vehicleRepository.save(vehicle);
 
@@ -241,7 +241,6 @@ public class InvoiceService {
         // NEW RESPONSE FIELDS
         response.setOfferName(offerName);
         response.setDiscountAmount(discountAmount);
-
 
         response.setTotalAmount(totalAmount);
 
@@ -357,8 +356,7 @@ public class InvoiceService {
         if (invoice.getHandoverDate() != null && invoice.getReturnDate() != null) {
             long totalDays = ChronoUnit.DAYS.between(
                     invoice.getHandoverDate(),
-                    invoice.getReturnDate()
-            );
+                    invoice.getReturnDate());
             if (totalDays < 1) {
                 totalDays = 1;
             }
@@ -410,8 +408,7 @@ public class InvoiceService {
                                     response.getTotalDays(),
                                     response.getDailyRate(),
                                     response.getWeeklyRate(),
-                                    response.getMonthlyRate()
-                            );
+                                    response.getMonthlyRate());
 
                             response.setMonthsCharged(calc.months);
                             response.setWeeksCharged(calc.weeks);
