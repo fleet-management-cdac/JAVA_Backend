@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.dto.ApiResponseDTO;
+import com.example.dto.AssignHubRequestDTO;
 import com.example.dto.UpdateUserDetailsDTO;
 import com.example.dto.UserProfileDTO;
 import com.example.service.UserService;
@@ -35,6 +36,21 @@ public class UserController {
             @RequestBody UpdateUserDetailsDTO request) {
 
         ApiResponseDTO<UserProfileDTO> response = userService.updateUserDetails(userId, request);
+
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(400).body(response);
+        }
+    }
+
+    // ADMIN: Assign hub to staff member
+    @PutMapping("/{userId}/assign-hub")
+    public ResponseEntity<ApiResponseDTO<String>> assignHubToUser(
+            @PathVariable Long userId,
+            @RequestBody AssignHubRequestDTO request) {
+
+        ApiResponseDTO<String> response = userService.assignHubToUser(userId, request.getHubId());
 
         if (response.isSuccess()) {
             return ResponseEntity.ok(response);

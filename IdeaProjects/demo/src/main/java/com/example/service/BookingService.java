@@ -207,6 +207,18 @@ public class BookingService {
         return ApiResponseDTO.success("User bookings fetched", responses);
     }
 
+    // ========== GET BOOKINGS BY HUB ID (For Staff Dashboard) ==========
+    public ApiResponseDTO<List<BookingResponseDTO>> getBookingsByHubId(Long hubId) {
+        List<Booking> bookings = bookingRepository.findByHubId(hubId);
+        List<BookingResponseDTO> responses = new ArrayList<>();
+
+        for (Booking booking : bookings) {
+            responses.add(buildBookingResponse(booking, booking.getBookingCustomerDetail()));
+        }
+
+        return ApiResponseDTO.success("Hub bookings fetched", responses);
+    }
+
     // ========== UPDATE BOOKING STATUS ==========
     @Transactional
     public ApiResponseDTO<BookingResponseDTO> updateBookingStatus(Long bookingId, String status) {

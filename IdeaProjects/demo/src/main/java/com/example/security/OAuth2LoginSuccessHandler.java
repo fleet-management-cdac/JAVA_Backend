@@ -32,7 +32,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+            Authentication authentication) throws IOException, ServletException {
 
         logger.info("=================================================");
         logger.info("🎉 LOGIN SUCCESS: OAuth2 Authentication Successful!");
@@ -47,7 +47,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         if (userOptional.isPresent()) {
             UserAuth user = userOptional.get();
             try {
-                String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+                String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole(), null);
                 logger.info("🔑 JWT Generated Successfully!");
                 logger.debug("   Token: {}...", token.substring(0, 15)); // Log partial token for safety
 

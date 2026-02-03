@@ -55,4 +55,18 @@ public class HandoverController {
         ApiResponseDTO<List<HandoverResponseDTO>> response = handoverService.getHandoversByBookingId(bookingId);
         return ResponseEntity.ok(response);
     }
+
+    // PROCESS RETURN (Updates vehicle hub to return location)
+    @PostMapping("/return")
+    public ResponseEntity<ApiResponseDTO<HandoverResponseDTO>> processReturn(
+            @RequestBody HandoverRequestDTO request) {
+
+        ApiResponseDTO<HandoverResponseDTO> response = handoverService.processReturnHandover(request);
+
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }

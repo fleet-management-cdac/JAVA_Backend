@@ -59,6 +59,11 @@ public class UserDetail {
     @Column(name = "dip_valid_till")
     private LocalDate dipValidTill;
 
+    // Hub assignment for staff members
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hub_id")
+    private HubMaster assignedHub;
+
     public Long getId() {
         return id;
     }
@@ -185,6 +190,14 @@ public class UserDetail {
 
     public void setDipValidTill(LocalDate dipValidTill) {
         this.dipValidTill = dipValidTill;
+    }
+
+    public HubMaster getAssignedHub() {
+        return assignedHub;
+    }
+
+    public void setAssignedHub(HubMaster assignedHub) {
+        this.assignedHub = assignedHub;
     }
 
 }
