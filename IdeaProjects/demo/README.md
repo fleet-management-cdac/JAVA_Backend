@@ -860,6 +860,132 @@ Subsequent Requests:
 
 ## 📊 Business Logic & Flows
 
+### Complete Booking Lifecycle
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         FLEMAN BOOKING LIFECYCLE                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+STEP 1: CREATE BOOKING (Customer)
+══════════════════════════════════
+POST /api/bookings
+
+    ┌─────────────────────────────────┐
+    │  BookingService.createBooking() │
+    └─────────────────────────────────┘
+              │
+              ├── Validate request (dates, vehicle type, hubs)
+              ├── Create Booking record (status: "reserved")
+              ├── Create BookingCustomerDetail record
+              └── 📧 Send confirmation email
+              │
+              ▼
+        Booking Status: RESERVED
+        Vehicle Status: (unchanged - not assigned yet)
+
+
+STEP 2: VEHICLE HANDOVER / PICKUP (Staff at Hub)
+════════════════════════════════════════════════
+POST /api/handovers
+
+    ┌─────────────────────────────────────┐
+    │  HandoverService.createHandover()   │
+    └─────────────────────────────────────┘
+              │
+              ├── Validate booking status == "reserved"
+              ├── Assign specific vehicle to booking
+              ├── Create Handover record (timestamp, fuel status)
+              ├── Update Booking status → "active"
+              └── Update Vehicle status → "rented"
+              │
+              ▼
+        Booking Status: ACTIVE
+        Vehicle Status: RENTED
+
+
+STEP 3: VEHICLE RETURN & INVOICE (Staff at Hub)
+════════════════════════════════════════════════
+POST /api/invoices/return
+
+    ┌───────────────────────────────────────────┐
+    │  InvoiceService.processVehicleReturn()    │
+    └───────────────────────────────────────────┘
+              │
+              ├── Validate booking status == "active"
+              ├── Calculate rental days (handover → return)
+              ├── 💰 Smart Pricing Calculation:
+              │       └── Months (30 days) + Weeks (7 days) + Days
+              ├── Calculate addon charges
+              ├── Apply discount offers (if active at pickup)
+              ├── Create InvoiceHeader record (payment: "pending")
+              ├── Update Booking status → "returned"
+              ├── 🚗 Update Vehicle hub → Return Hub Location
+              ├── Update Vehicle status → "available"
+              ├── 📄 Generate PDF invoice
+              └── 📧 Send invoice email to customer
+              │
+              ▼
+        Booking Status: RETURNED
+        Vehicle Status: AVAILABLE
+        Vehicle Hub: RETURN LOCATION ← Important for inter-city transfers!
+
+
+STEP 4: PAYMENT (Customer Online)
+═════════════════════════════════
+POST /api/payments/create-order  →  Create Razorpay order
+POST /api/payments/verify        →  Verify payment signature
+
+    ┌───────────────────────────────────────┐
+    │  PaymentService.verifyPayment()       │
+    └───────────────────────────────────────┘
+              │
+              ├── Verify HMAC-SHA256 signature
+              ├── Update Invoice payment status → "success"
+              ├── Store Razorpay payment ID
+              └── Update Booking status → "completed"
+              │
+              ▼
+        Booking Status: COMPLETED ✓
+        Invoice Payment: SUCCESS
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                          STATUS STATE MACHINE
+
+    ┌───────────┐     Handover      ┌───────────┐
+    │ RESERVED  │  ───────────────► │  ACTIVE   │
+    └───────────┘                   └───────────┘
+         │                               │
+         │ Cancel                        │ Return
+         ▼                               ▼
+    ┌───────────┐                   ┌───────────┐
+    │ CANCELLED │                   │ RETURNED  │
+    └───────────┘                   └───────────┘
+                                         │
+                                         │ Payment Success
+                                         ▼
+                                    ┌───────────┐
+                                    │ COMPLETED │
+                                    └───────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                    VEHICLE LOCATION TRANSFER EXAMPLE
+
+    Pickup Hub: Mumbai Central
+    Return Hub: Nagpur Station
+
+    1. At Handover: Vehicle "MH12AB1234" is at Mumbai Central
+    2. Customer uses vehicle...
+    3. At Return: Vehicle returned at Nagpur Station
+    4. System updates: vehicle.setHub(returnHub)
+    5. Result: Vehicle "MH12AB1234" is now available at Nagpur Station!
+
+    This enables inter-city one-way rentals.
+```
+
 ### Smart Rental Pricing Algorithm
 
 ```java
