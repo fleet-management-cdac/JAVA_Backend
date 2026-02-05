@@ -45,6 +45,9 @@ public class InvoiceService {
     @Autowired
     private DiscountOfferRepository discountOfferRepository;
 
+    @Autowired
+    private HubMasterRepository hubMasterRepository; // For flexible return hub lookup
+
     // ========== PROCESS VEHICLE RETURN & GENERATE INVOICE ==========
     @Transactional
     public ApiResponseDTO<InvoiceResponseDTO> processVehicleReturn(VehicleReturnRequestDTO request) {
@@ -195,12 +198,17 @@ public class InvoiceService {
         booking.setStatus("returned");
         bookingRepository.save(booking);
 
-        // ====== CRITICAL FIX: Update vehicle hub to RETURN LOCATION ======
-        // This ensures inter-city transfers work correctly
-        // Vehicle picked up in Mumbai, returned in Nagpur -> Vehicle is now in Nagpur
-        HubMaster returnHub = booking.getReturnHub();
-        if (returnHub != null) {
-            vehicle.setHub(returnHub);
+        // ====== Vehicle Hub Update: Use staffHubId (actual return location) if
+        // provided ======
+        // This enables flexible returns - customer can return at any hub
+        // Vehicle is registered at the hub where it was actually returned
+        if (request.getStaffHubId() != null) {
+            // Use staff's hub (actual return location)
+            Optional<HubMaster> staffHub = hubMasterRepository.findById(request.getStaffHubId());
+            staffHub.ifPresent(vehicle::setHub);
+        } else if (booking.getReturnHub() != null) {
+            // Fallback to booking's return hub
+            vehicle.setHub(booking.getReturnHub());
         }
         vehicle.setStatus("available");
         vehicleRepository.save(vehicle);
