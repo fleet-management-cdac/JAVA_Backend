@@ -1,298 +1,49 @@
-2026-02-04T00:18:04.946+05:30  INFO 31016 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-02-04T00:18:05.243+05:30  INFO 31016 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-02-04T00:18:05.262+05:30  INFO 31016 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-02-04T00:18:05.286+05:30  INFO 31016 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-02-04T00:18:05.290+05:30  INFO 31016 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-02-04T09:01:25.202+05:30  INFO 3800 --- [demo] [restartedMain] com.example.DemoApplication              : Starting DemoApplication using Java 17.0.12 with PID 3800 (D:\new cdac project\IdeaProjects\demo\target\classes started by Rushikesh Nimkar in D:\new cdac project)
-2026-02-04T09:01:25.204+05:30  INFO 3800 --- [demo] [restartedMain] com.example.DemoApplication              : No active profile set, falling back to 1 default profile: "default"
-2026-02-04T09:01:25.242+05:30  INFO 3800 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-02-04T09:01:25.243+05:30  INFO 3800 --- [demo] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-02-04T09:01:25.746+05:30  INFO 3800 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-02-04T09:01:25.802+05:30  INFO 3800 --- [demo] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 17 JPA repository interfaces.
-2026-02-04T09:01:26.920+05:30  INFO 3800 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-02-04T09:01:26.929+05:30  INFO 3800 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-02-04T09:01:26.929+05:30  INFO 3800 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
-2026-02-04T09:01:26.964+05:30  INFO 3800 --- [demo] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1721 ms
-2026-02-04T09:01:27.224+05:30  INFO 3800 --- [demo] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-02-04T09:01:27.282+05:30  INFO 3800 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
-2026-02-04T09:01:27.616+05:30  INFO 3800 --- [demo] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-02-04T09:01:27.641+05:30  INFO 3800 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-02-04T09:01:27.887+05:30  INFO 3800 --- [demo] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@62d99025
-2026-02-04T09:01:27.888+05:30  INFO 3800 --- [demo] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-02-04T09:01:27.957+05:30  WARN 3800 --- [demo] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-02-04T09:01:27.971+05:30  INFO 3800 --- [demo] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [jdbc:mysql://localhost:3306/fleeman?useUnicode=true&characterEncoding=UTF-8&character_set_server=utf8mb4]
-	Database driver: MySQL Connector/J
-	Database dialect: MySQLDialect
-	Database version: 8.0.43
-	Default catalog/schema: fleeman/undefined
-	Autocommit mode: undefined/unknown
-	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-02-04T09:01:29.003+05:30  INFO 3800 --- [demo] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-04T09:01:29.133+05:30  INFO 3800 --- [demo] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-02-04T09:01:29.294+05:30  INFO 3800 --- [demo] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-02-04T09:01:29.988+05:30  WARN 3800 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRestOperations(org.springframework.web.client.RestOperations)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
-2026-02-04T09:01:29.988+05:30  WARN 3800 --- [demo] [restartedMain] o.s.aop.framework.CglibAopProxy          : Public final method [public final void org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.setRequestEntityConverter(org.springframework.core.convert.converter.Converter)] cannot get proxied via CGLIB, consider removing the final marker or using interface-based JDK proxies.
-2026-02-04T09:01:30.698+05:30  WARN 3800 --- [demo] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-02-04T09:01:31.650+05:30  INFO 3800 --- [demo] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
-2026-02-04T09:01:31.722+05:30  INFO 3800 --- [demo] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-02-04T09:01:31.732+05:30  INFO 3800 --- [demo] [restartedMain] com.example.DemoApplication              : Started DemoApplication in 6.911 seconds (process running for 7.422)
-2026-02-04T09:01:38.953+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-02-04T09:01:38.953+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-02-04T09:01:38.956+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2026-02-04T09:01:39.155+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:39.155+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:39.155+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:01:39.170+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:39.252+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:39.255+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:39.256+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:39.256+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:01:39.530+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:39.530+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:39.539+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:39.542+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:44.766+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:44.766+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:01:44.780+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:01:44.784+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:45.830+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:45.830+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:45.830+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:01:45.831+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:45.841+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:01:45.841+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:01:45.841+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:01:45.841+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:02:42.390+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] CustomOAuth2UserService.loadUser called
-2026-02-04T09:02:42.390+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : =================================================
-2026-02-04T09:02:42.390+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : 🚀 STARTED: OAuth2 User Load Request
-2026-02-04T09:02:42.534+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : ✅ SUCCESS: Google User Loaded. Attributes: {sub=100525969007657984876, name=Rushikesh Nimkar, given_name=Rushikesh, family_name=Nimkar, picture=https://lh3.googleusercontent.com/a/ACg8ocKTifXWdkKYSM_xe65nE3cr31BNVs7DO4SSxkyYxxAtgmUrg3oQXA=s96-c, email=rushikeshnimkar396@gmail.com, email_verified=true}
-2026-02-04T09:02:42.536+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : 🔍 Processing user with email: rushikeshnimkar396@gmail.com
-2026-02-04T09:02:42.558+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : ✨ USER FOUND in Database! ID: 6
-2026-02-04T09:02:42.558+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      :    Current Provider: GOOGLE
-2026-02-04T09:02:42.558+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.service.CustomOAuth2UserService      : =================================================
-2026-02-04T09:02:42.575+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.security.OAuth2LoginSuccessHandler   : =================================================
-2026-02-04T09:02:42.575+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.security.OAuth2LoginSuccessHandler   : 🎉 LOGIN SUCCESS: OAuth2 Authentication Successful!
-2026-02-04T09:02:42.575+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.security.OAuth2LoginSuccessHandler   : 📧 User Email from Context: rushikeshnimkar396@gmail.com
-2026-02-04T09:02:42.664+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.security.OAuth2LoginSuccessHandler   : 🔑 JWT Generated Successfully!
-2026-02-04T09:02:42.664+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] c.e.security.OAuth2LoginSuccessHandler   : 🚀 Redirecting User to: http://localhost:3000/login/success?token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOjYsImVtYWlsIjoicnVzaGlrZXNobmlta2FyMzk2QGdtYWlsLmNvbSIsInN1YiI6InJ1c2hpa2VzaG5pbWthcjM5NkBnbWFpbC5jb20iLCJpYXQiOjE3NzAxNzU5NjIsImV4cCI6MTc3MDI2MjM2Mn0.fDXwl35DbkeQBEkcovBPj85HCs_vOzOu_GKKRAvbymJ54A2yowd3TVxp4ehGOFpn2BOXagcl9fqsDGgPSM3wFg
-2026-02-04T09:02:43.015+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:02:43.016+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:02:43.017+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:02:43.025+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:02:43.027+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:02:43.194+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:02:43.194+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:02:43.203+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:02:43.203+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:02:47.172+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T09:02:47.172+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T09:02:48.339+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T09:02:57.383+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T09:02:57.383+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T09:02:59.425+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T09:03:03.450+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
-2026-02-04T09:03:03.512+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
-2026-02-04T09:03:03.513+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
-2026-02-04T09:03:03.532+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
-2026-02-04T09:03:06.127+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:03:06.131+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AddonService.getAllAddons called
-2026-02-04T09:03:06.134+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:06.135+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:06.135+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:06.137+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:03:06.144+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:03:06.144+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:06.144+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:06.144+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:06.165+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] AddonService.getAllAddons called
-2026-02-04T09:03:10.580+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [BOOKING] Booking creation started
-2026-02-04T09:03:10.580+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.createBooking called
-2026-02-04T09:03:10.644+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] EmailService.sendBookingConfirmationEmail called
-2026-02-04T09:03:14.269+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [BOOKING] Booking confirmed successfully
-2026-02-04T09:03:18.796+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByUserId called
-2026-02-04T09:03:18.821+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByUserId called
-2026-02-04T09:03:22.202+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:22.203+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:22.203+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:22.203+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:22.212+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:22.212+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:22.212+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:22.213+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:43.750+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:03:43.856+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:03:43.896+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:43.896+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:43.904+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:43.904+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:46.887+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:46.894+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:46.917+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getAllStaff called
-2026-02-04T09:03:46.933+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getAllStaff called
-2026-02-04T09:03:56.022+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:56.024+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:56.031+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:56.035+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:58.052+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:58.052+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:03:58.052+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:58.053+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:58.059+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:03:58.059+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:03:58.060+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:03:58.060+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:04:09.287+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:04:09.472+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:04:09.485+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:04:15.497+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:04:15.511+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:04:29.900+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:04:29.913+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:04:48.332+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:04:48.526+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:04:48.536+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:05:08.107+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:05:08.238+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:05:08.247+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:05:16.344+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] CustomOAuth2UserService.loadUser called
-2026-02-04T09:05:16.344+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : =================================================
-2026-02-04T09:05:16.344+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : 🚀 STARTED: OAuth2 User Load Request
-2026-02-04T09:05:16.466+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : ✅ SUCCESS: Google User Loaded. Attributes: {sub=100525969007657984876, name=Rushikesh Nimkar, given_name=Rushikesh, family_name=Nimkar, picture=https://lh3.googleusercontent.com/a/ACg8ocKTifXWdkKYSM_xe65nE3cr31BNVs7DO4SSxkyYxxAtgmUrg3oQXA=s96-c, email=rushikeshnimkar396@gmail.com, email_verified=true}
-2026-02-04T09:05:16.466+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : 🔍 Processing user with email: rushikeshnimkar396@gmail.com
-2026-02-04T09:05:16.469+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : ✨ USER FOUND in Database! ID: 6
-2026-02-04T09:05:16.469+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      :    Current Provider: GOOGLE
-2026-02-04T09:05:16.469+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.service.CustomOAuth2UserService      : =================================================
-2026-02-04T09:05:16.470+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.security.OAuth2LoginSuccessHandler   : =================================================
-2026-02-04T09:05:16.470+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.security.OAuth2LoginSuccessHandler   : 🎉 LOGIN SUCCESS: OAuth2 Authentication Successful!
-2026-02-04T09:05:16.470+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.security.OAuth2LoginSuccessHandler   : 📧 User Email from Context: rushikeshnimkar396@gmail.com
-2026-02-04T09:05:16.472+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.security.OAuth2LoginSuccessHandler   : 🔑 JWT Generated Successfully!
-2026-02-04T09:05:16.472+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] c.e.security.OAuth2LoginSuccessHandler   : 🚀 Redirecting User to: http://localhost:3000/login/success?token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOjYsImVtYWlsIjoicnVzaGlrZXNobmlta2FyMzk2QGdtYWlsLmNvbSIsInN1YiI6InJ1c2hpa2VzaG5pbWthcjM5NkBnbWFpbC5jb20iLCJpYXQiOjE3NzAxNzYxMTYsImV4cCI6MTc3MDI2MjUxNn0.g8kiuAlbatKogGKlLuro9-0ASYydfRC2i9fk3xGYFLWNY4KptEiB_-sx4aTF5RYHzghCYTu6w7iLDj5qGX9dgw
-2026-02-04T09:05:16.683+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:16.683+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:05:16.683+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:16.692+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:16.692+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:16.849+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:05:16.849+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:16.855+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:16.855+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:05:19.218+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T09:05:19.218+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T09:05:20.351+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T09:05:27.903+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T09:05:27.903+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T09:05:29.682+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T09:05:33.684+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
-2026-02-04T09:05:33.699+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getVehicleCatalogData called
-2026-02-04T09:05:33.701+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
-2026-02-04T09:05:33.723+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleTypeService.getAllVehicleTypesWithRates called
-2026-02-04T09:05:35.088+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:05:35.093+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] AddonService.getAllAddons called
-2026-02-04T09:05:35.097+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:05:35.097+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:35.097+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:35.098+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:35.101+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AddonService.getAllAddons called
-2026-02-04T09:05:35.103+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:35.103+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T09:05:35.103+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:35.103+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:38.508+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [BOOKING] Booking creation started
-2026-02-04T09:05:38.510+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.createBooking called
-2026-02-04T09:05:38.520+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] EmailService.sendBookingConfirmationEmail called
-2026-02-04T09:05:42.370+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [BOOKING] Booking confirmed successfully
-2026-02-04T09:05:43.848+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByUserId called
-2026-02-04T09:05:43.860+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByUserId called
-2026-02-04T09:05:46.610+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:46.610+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:46.610+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:46.610+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:05:46.615+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T09:05:46.616+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:05:46.616+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T09:05:46.616+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:05:58.740+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:05:58.866+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:05:58.875+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:02.439+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:02.439+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:02.447+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:02.461+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:06.163+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getAvailableVehiclesByTypeAndHub called
-2026-02-04T09:06:11.762+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:11.779+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:12.829+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:12.829+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:12.834+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:12.834+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:13.689+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleService.getAvailableVehiclesByTypeAndHub called
-2026-02-04T09:06:24.894+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] HandoverService.createHandover called
-2026-02-04T09:06:26.976+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:26.987+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:29.983+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:29.983+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:29.989+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:29.989+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:47.928+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T09:06:48.054+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:48.065+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:06:51.612+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:51.612+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:51.619+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
-2026-02-04T09:06:51.619+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
-2026-02-04T09:06:58.212+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.processVehicleReturn called
-2026-02-04T09:06:58.233+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] PdfInvoiceService.generateInvoicePdf called
-2026-02-04T09:06:58.369+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] EmailService.sendInvoiceWithAttachment called
-2026-02-04T09:07:42.568+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] PaymentService.createOrder called
-2026-02-04T09:07:42.568+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.service.PaymentService       : 🚀 Creating Razorpay order for invoice ID: 12
-2026-02-04T09:07:43.519+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.service.PaymentService       : ✅ Razorpay Order created: order_SBvH4dtSZVA5dj
-2026-02-04T09:08:05.597+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] PaymentService.verifyPayment called
-2026-02-04T09:08:05.598+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.service.PaymentService       : 🔐 Verifying payment for invoice: 12
-2026-02-04T09:08:05.603+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.service.PaymentService       : ✅ Booking #13 marked as completed after successful payment
-2026-02-04T09:08:05.604+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.service.PaymentService       : ✅ Payment verified! Transaction ID: pay_SBvHBDj46NYNin
-2026-02-04T09:08:08.033+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:08:08.042+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:08:10.792+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:08:10.802+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingsByHubId called
-2026-02-04T09:08:12.396+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:08:12.407+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
-2026-02-04T09:08:23.896+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T09:08:23.896+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:08:23.904+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T09:08:23.907+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T10:06:47.248+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T10:06:47.787+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T10:06:47.791+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T10:06:47.810+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T10:06:47.817+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T10:06:54.890+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
-2026-02-04T10:06:55.000+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
-2026-02-04T10:06:55.080+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T10:06:55.080+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T10:06:55.091+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T10:06:55.094+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T10:06:59.933+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T10:06:59.933+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T10:06:59.933+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T10:06:59.934+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T10:06:59.941+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
-2026-02-04T10:06:59.941+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
-2026-02-04T10:06:59.941+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
-2026-02-04T10:06:59.943+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
-2026-02-04T11:25:27.003+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T11:25:27.003+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T11:25:28.657+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T11:25:30.538+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAirportsByState called
-2026-02-04T11:25:30.538+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] CityMasterService.getCitiesByState called
-2026-02-04T11:25:30.547+05:30  INFO 3800 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] HubService.getHubsByCity called
-2026-02-04T14:39:25.039+05:30  INFO 3800 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-02-04T14:39:25.303+05:30  INFO 3800 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-02-04T14:39:25.321+05:30  INFO 3800 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-02-04T14:39:25.338+05:30  INFO 3800 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-02-04T14:39:25.342+05:30  INFO 3800 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-19T22:40:18.107+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-19T22:40:18.107+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-19T22:40:18.141+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-19T22:40:18.141+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-19T22:40:18.159+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
+2026-02-19T22:40:18.172+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
+2026-02-19T22:40:18.397+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-19T22:40:18.398+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-19T22:40:18.406+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-19T22:40:18.406+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-19T22:40:26.975+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AuthService.login called
+2026-02-19T22:40:27.079+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] UserService.getUserDetailsByUserId called
+2026-02-19T22:40:27.163+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getAllBookings called
+2026-02-19T22:40:27.219+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getAllBookings called
+2026-02-19T22:40:29.290+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
+2026-02-19T22:40:29.291+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
+2026-02-19T22:40:29.299+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.getInvoiceByBookingId called
+2026-02-19T22:40:29.299+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getBookingById called
+2026-02-19T22:42:52.228+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] InvoiceService.processVehicleReturn called
+2026-02-19T22:42:52.350+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] PdfInvoiceService.generateInvoicePdf called
+2026-02-19T22:42:52.619+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-5] com.example.aop.LoggingAspect            : [AOP-DEBUG] EmailService.sendInvoiceWithAttachment called
+2026-02-19T22:43:02.225+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] PaymentService.createOrder called
+2026-02-19T22:43:02.225+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.service.PaymentService       : 🚀 Creating Razorpay order for invoice ID: 18
+2026-02-19T22:43:03.393+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.service.PaymentService       : ✅ Razorpay Order created: order_SCXhhWMInpeN9U
+2026-02-19T22:44:03.995+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getAllBookings called
+2026-02-19T22:44:04.039+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] BookingService.getAllBookings called
+2026-02-05T22:44:44.085+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
+2026-02-05T22:44:44.107+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] VehicleInventoryService.getHubInventory called
+2026-02-05T22:44:46.641+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
+2026-02-05T22:44:46.645+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-8] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-02-05T22:44:46.652+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
+2026-02-05T22:44:46.655+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-02-05T22:44:52.767+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:44:56.947+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:45:04.191+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:45:06.142+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:45:08.338+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-10] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-02-05T22:45:08.338+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-1] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
+2026-02-05T22:45:08.338+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-9] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-05T22:45:08.339+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-6] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:45:08.345+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-7] com.example.aop.LoggingAspect            : [AOP-DEBUG] AirportMasterService.getAllAirports called
+2026-02-05T22:45:08.345+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-4] com.example.aop.LoggingAspect            : [AOP-DEBUG] LanguageService.getAllLanguages called
+2026-02-05T22:45:08.345+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-2] com.example.aop.LoggingAspect            : [AOP-DEBUG] StateService.getAllStateNames called
+2026-02-05T22:45:08.345+05:30  INFO 37256 --- [demo] [http-nio-8080-exec-3] com.example.aop.LoggingAspect            : [AOP-DEBUG] TranslationService.getTranslationsMapByLanguageCode called
+2026-02-05T22:45:49.644+05:30  INFO 37256 --- [demo] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-05T22:45:49.910+05:30  INFO 37256 --- [demo] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-05T22:45:49.924+05:30  INFO 37256 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T22:45:49.938+05:30  INFO 37256 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-05T22:45:49.943+05:30  INFO 37256 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

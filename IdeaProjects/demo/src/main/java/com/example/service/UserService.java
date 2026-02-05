@@ -95,6 +95,12 @@ public class UserService {
                 dto.setStateName(ud.getCity().getState().getStateName());
             }
         }
+
+        // From Hub
+        if (ud.getAssignedHub() != null) {
+            dto.setHubName(ud.getAssignedHub().getHubName());
+        }
+
         return dto;
     }
 

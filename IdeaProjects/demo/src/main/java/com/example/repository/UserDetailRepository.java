@@ -18,6 +18,7 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
                         "LEFT JOIN FETCH ud.user " +
                         "LEFT JOIN FETCH ud.city c " +
                         "LEFT JOIN FETCH c.state " +
+                        "LEFT JOIN FETCH ud.assignedHub " +
                         "WHERE ud.user.id = :userId")
         Optional<UserDetail> findByUserIdWithDetails(@Param("userId") Long userId);
 
